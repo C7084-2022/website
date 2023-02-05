@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>C7084-2022 Big Data – mod-09-aqe</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../img/C7084-pad.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/C7084-pad.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Information</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">Schedule</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#mod-09-adaptive-query-execution" id="toc-mod-09-adaptive-query-execution" class="nav-link active" data-scroll-target="#mod-09-adaptive-query-execution">Mod 09: Adaptive Query Execution</a>
+  <ul class="collapse">
+  <li><a href="#lab-00-setup-data-sets-for-labs" id="toc-lab-00-setup-data-sets-for-labs" class="nav-link" data-scroll-target="#lab-00-setup-data-sets-for-labs">Lab 00: Setup Data sets for Labs</a></li>
+  <li><a href="#mod-09-aqe-adapative-query-execution" id="toc-mod-09-aqe-adapative-query-execution" class="nav-link" data-scroll-target="#mod-09-aqe-adapative-query-execution">Mod 09 AQE: Adapative Query Execution</a>
+  <ul class="collapse">
+  <li><a href="#lab-01-converting-sortmergejoin-into-a-broadcasthashjoin" id="toc-lab-01-converting-sortmergejoin-into-a-broadcasthashjoin" class="nav-link" data-scroll-target="#lab-01-converting-sortmergejoin-into-a-broadcasthashjoin">Lab 01: Converting SortMergeJoin into a BroadcastHashJoin</a></li>
+  <li><a href="#lab-02-dynamic-coalesce-shuffle-partitions" id="toc-lab-02-dynamic-coalesce-shuffle-partitions" class="nav-link" data-scroll-target="#lab-02-dynamic-coalesce-shuffle-partitions">Lab 02: Dynamic Coalesce Shuffle Partitions</a></li>
+  <li><a href="#lab-03-aqe-handling-skew-partitions" id="toc-lab-03-aqe-handling-skew-partitions" class="nav-link" data-scroll-target="#lab-03-aqe-handling-skew-partitions">Lab 03 AQE: Handling Skew Partitions</a></li>
+  <li><a href="#lab-04-dynamic-partition-pruning" id="toc-lab-04-dynamic-partition-pruning" class="nav-link" data-scroll-target="#lab-04-dynamic-partition-pruning">Lab 04: Dynamic Partition Pruning</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#end-of-module-09-aqe-adapative-query-execution" id="toc-end-of-module-09-aqe-adapative-query-execution" class="nav-link" data-scroll-target="#end-of-module-09-aqe-adapative-query-execution">End of Module 09: AQE (Adapative Query Execution)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="mod-09-adaptive-query-execution" class="level1">
+<h1>Mod 09: Adaptive Query Execution</h1>
+<section id="lab-00-setup-data-sets-for-labs" class="level3">
+<h3 class="anchored" data-anchor-id="lab-00-setup-data-sets-for-labs">Lab 00: Setup Data sets for Labs</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“51dd22b6-9c75-414d-a965-5fd4e232f1f9”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dynamic Partition Pruning Lab setup: Create Schema</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.types <span class="im">import</span> StructType, StructField, IntegerType, StringType, BooleanType, DecimalType</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>fireSchema <span class="op">=</span> StructType([StructField(<span class="st">'IncidentNumber'</span>, IntegerType(), <span class="va">True</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>StructField(<span class="st">'CallType'</span>, StringType(), <span class="va">True</span>), StructField(<span class="st">'ALSUnit'</span>, BooleanType(), <span class="va">True</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>StructField(<span class="st">'CallTypeGroup'</span>, StringType(), <span class="va">True</span>),StructField(<span class="st">'UnitType'</span>, StringType(), <span class="va">True</span>), </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>StructField(<span class="st">'NeighborhoodDistrict'</span>, StringType(), <span class="va">True</span>), StructField(<span class="st">'ReceivedDtTmTS'</span>, StringType(), <span class="va">True</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“fdc94b82-efe6-4bea-ac54-9bb0455dc4a2”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dynamic Partition Pruning Lab setup: Apply Schema, convert to DF and create Non-Partitioned View and Display</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>fireDF <span class="op">=</span> spark.read.option(<span class="st">"header"</span>,<span class="st">"true"</span>).option(<span class="st">"schema"</span>,<span class="st">"fireSchema"</span>).option(<span class="st">"sep"</span>,<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>).csv(<span class="st">"/FileStore/tables/fire_callsX_comma.csv"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>display(fireDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“4a8a4b15-d117-421c-ab7b-83b4c499b2b2”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dynamic Partition Pruning Lab setup: Create Non-Partitioned object</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>fireDF.write.mode(<span class="st">"overwrite"</span>).parquet(<span class="st">"dbfs:/FileStore/tables/fire_nonpart"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“cd9e2e7e-0f7d-4bbd-a3b5-16d7c37f657d”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dynamic Partition Pruning Lab setup: Create Partitioned object (Notice 'partitionBy' function)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>fireDF.write.mode(<span class="st">"overwrite"</span>).partitionBy(<span class="st">"NeighborhoodDistrict"</span>).parquet(<span class="st">"dbfs:/FileStore/tables/fire_part"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“a92032db-42f6-44f9-ab1a-c4071a27612e”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dynamic Partition Pruning Lab setup: Create Schema and Apply. Convert to Temp View</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.types <span class="im">import</span> StructType, StructField, IntegerType, StringType, BooleanType, DecimalType</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>neighborSchema <span class="op">=</span> StructType([StructField(<span class="st">'Neighborhood'</span>, StringType(), <span class="va">True</span>)])   </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>spark.read.csv(<span class="st">"dbfs:/FileStore/tables/neighbooddistricts.csv"</span>, header<span class="op">=</span><span class="va">False</span>, schema<span class="op">=</span>neighborSchema).createOrReplaceTempView(<span class="st">"neighbor_view"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>display(spark.sql(<span class="st">"SELECT * FROM neighbor_view"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“58fb1e60-a37b-48c5-8511-a7cc73bf2ec4”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dynamic Partition Pruning Lab setup:: Create DIM Parquet </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dimDF <span class="op">=</span> spark.read.csv(<span class="st">"dbfs:/FileStore/tables/neighbooddistricts.csv"</span>, header<span class="op">=</span><span class="va">False</span>, schema<span class="op">=</span>neighborSchema)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>dimDF.write.mode(<span class="st">"overwrite"</span>).parquet(<span class="st">"dbfs:/FileStore/tables/dim01"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>dimDF1 <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/dim01"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>display(dimDF1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“30bfd17e-80d4-408d-a700-0ea8b07954c3”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Setup <span class="cf">for</span> Coalesce Shuffle Partitions: First create <span class="dv">2</span> objects we will be JOINing</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>val txDF <span class="op">=</span> spark.<span class="bu">range</span>(<span class="dv">10</span> <span class="op">*</span> <span class="dv">1000</span>) <span class="op">//</span> <span class="dv">10</span>,<span class="dv">000</span> rows</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>val companyDF <span class="op">=</span> spark.<span class="bu">range</span>(<span class="dv">100</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> genRandomCompanyTx: ( () <span class="op">=&gt;</span> (Int, String, String, String) ) <span class="op">=</span> {</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  () <span class="op">=&gt;</span> <span class="cf">if</span> ( scala.util.Random.nextInt(<span class="dv">100</span>) <span class="op">&lt;=</span> <span class="dv">10</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">1</span>, <span class="op">//</span>Very Big Company<span class="op">!</span> (<span class="dv">10</span><span class="op">%</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  scala.util.Random.alphanumeric.take(<span class="dv">5</span>).mkString(<span class="st">""</span>),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  scala.util.Random.alphanumeric.take(<span class="dv">5</span>).mkString(<span class="st">""</span>),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  scala.util.Random.alphanumeric.take(<span class="dv">5</span>).mkString(<span class="st">""</span>))</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  (scala.util.Random.nextInt(<span class="dv">100</span>)<span class="op">%</span><span class="dv">99</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  scala.util.Random.alphanumeric.take(<span class="dv">5</span>).mkString(<span class="st">""</span>),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  scala.util.Random.alphanumeric.take(<span class="dv">5</span>).mkString(<span class="st">""</span>),</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  scala.util.Random.alphanumeric.take(<span class="dv">5</span>).mkString(<span class="st">""</span>))</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> genCompanyLookup: ( (Int) <span class="op">=&gt;</span> (String) ) <span class="op">=</span> {</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  (<span class="bu">id</span>) <span class="op">=&gt;</span> <span class="cf">if</span> (<span class="bu">id</span> <span class="op">==</span><span class="dv">1</span>) (<span class="st">"Very Big Company"</span>) <span class="cf">else</span> (<span class="st">"Company "</span><span class="op">+</span><span class="bu">id</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>val gen <span class="op">=</span> org.apache.spark.sql.functions.udf(genRandomCompanyTx)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>val lkp <span class="op">=</span> org.apache.spark.sql.functions.udf(genCompanyLookup)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>val sample <span class="op">=</span> txDF.withColumn(<span class="st">"newCol"</span>, gen()).select(<span class="st">"id"</span>, <span class="st">"newCol.*"</span>).toDF(<span class="st">"tx_id"</span>, <span class="st">"company_id"</span>, <span class="st">"field1"</span>, <span class="st">"field2"</span>, <span class="st">"field3"</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>sample.createOrReplaceTempView(<span class="st">"sample"</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>val lookup <span class="op">=</span> companyDF.withColumn(<span class="st">"company"</span>, lkp(companyDF(<span class="st">"id"</span>)))</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>lookup.createOrReplaceTempView(<span class="st">"lookup"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“0eabb96c-d999-45e6-830e-b5077cefec29”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Setup <span class="cf">for</span> Coalesce Shuffle Partitions: Write data to File System</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>sample.write.<span class="bu">format</span>(<span class="st">"csv"</span>).mode(<span class="st">"overwrite"</span>).save(<span class="st">"dbfs:/FileStore/tables/sample"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>lookup.write.<span class="bu">format</span>(<span class="st">"csv"</span>).mode(<span class="st">"overwrite"</span>).save(<span class="st">"dbfs:/FileStore/tables/lookup"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“41d87f78-3eee-43f5-93a9-6c1e8d5ed220”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup for Coalesce Shuffle Partitions: Create Schemas for our 2 Dataframes</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.types <span class="im">import</span> StructType, StructField, IntegerType, StringType, BooleanType</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>sampleSchema <span class="op">=</span> StructType([StructField(<span class="st">'tx_id'</span>, IntegerType(), <span class="va">True</span>),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                             StructField(<span class="st">'company_id'</span>, IntegerType(), <span class="va">True</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                             StructField(<span class="st">'field1'</span>, StringType(), <span class="va">True</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                             StructField(<span class="st">'field2'</span>, StringType(), <span class="va">True</span>),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                             StructField(<span class="st">'field3'</span>, StringType(), <span class="va">True</span>)])</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>lookupSchema <span class="op">=</span> StructType([StructField(<span class="st">'id'</span>, IntegerType(), <span class="va">True</span>),</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                             StructField(<span class="st">'company'</span>, StringType(), <span class="va">True</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“7dcdf1b6-c1ba-4a35-9c30-427e13e4ed2b”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup for Coalesce Shuffle Partitions: Read into Dataframes</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>sampleDF <span class="op">=</span> spark.read.load(<span class="st">"dbfs:/FileStore/tables/sample/"</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"csv"</span>, header <span class="op">=</span> <span class="st">"false"</span>, schema <span class="op">=</span> sampleSchema)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>lookupDF <span class="op">=</span> spark.read.load(<span class="st">"dbfs:/FileStore/tables/lookup/"</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"csv"</span>, header <span class="op">=</span> <span class="st">"false"</span>, schema <span class="op">=</span> lookupSchema)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“c340d727-0a44-47f7-b777-5faaf13fd365”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup for Coalesce Shuffle Partitions: Convert CSV to Parquet</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sampleDF.write.<span class="bu">format</span>(<span class="st">"parquet"</span>).mode(<span class="st">"overwrite"</span>).save(<span class="st">"dbfs:/FileStore/tables/sample_parq"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>lookupDF.write.<span class="bu">format</span>(<span class="st">"parquet"</span>).mode(<span class="st">"overwrite"</span>).save(<span class="st">"dbfs:/FileStore/tables/lookup_parq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“ef1c3d3a-3264-48ab-aaa5-e7bba1d26aa4”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup for Coalesce Shuffle Partitions: Create 2 Dataframes</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>sampleDF <span class="op">=</span> spark.read.load(<span class="st">"dbfs:/FileStore/tables/sample/"</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"parquet"</span>, header <span class="op">=</span> <span class="st">"false"</span>, schema <span class="op">=</span> sampleSchema)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>lookupDF <span class="op">=</span> spark.read.load(<span class="st">"dbfs:/FileStore/tables/lookup/"</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"parquet"</span>, header <span class="op">=</span> <span class="st">"false"</span>, schema <span class="op">=</span> lookupSchema)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“04fad7b8-edfc-43c0-aab1-37336082d715”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Setup <span class="cf">for</span> Skew Partitions: Create Data objects</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scala.util.Random</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scala.math.BigDecimal</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="kw">class</span> MakeModel(make: String, model: String)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="kw">class</span> T1(registration: String, make: String, model: String, engine_size: BigDecimal)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="kw">class</span> T2(make: String, model: String, engine_size: BigDecimal, sale_price: Double)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    val makeModelSet: Seq[MakeModel] <span class="op">=</span> Seq(</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>      MakeModel(<span class="st">"FORD"</span>, <span class="st">"FIESTA"</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>      , MakeModel(<span class="st">"NISSAN"</span>, <span class="st">"QASHQAI"</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>      , MakeModel(<span class="st">"HYUNDAI"</span>, <span class="st">"I20"</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>      , MakeModel(<span class="st">"SUZUKI"</span>, <span class="st">"SWIFT"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>      , MakeModel(<span class="st">"MERCEDED_BENZ"</span>, <span class="st">"E CLASS"</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>      , MakeModel(<span class="st">"VAUXHALL"</span>, <span class="st">"CORSA"</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>      , MakeModel(<span class="st">"FIAT"</span>, <span class="st">"500"</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>      , MakeModel(<span class="st">"SKODA"</span>, <span class="st">"OCTAVIA"</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>      , MakeModel(<span class="st">"KIA"</span>, <span class="st">"RIO"</span>)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> randomMakeModel(): MakeModel <span class="op">=</span> {</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>      val makeModelIndex <span class="op">=</span> <span class="cf">if</span> (Random.nextBoolean()) <span class="dv">0</span> <span class="cf">else</span> Random.nextInt(makeModelSet.size)</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>      makeModelSet(makeModelIndex)</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> randomEngineSize() <span class="op">=</span> BigDecimal(s<span class="st">"1.${Random.nextInt(9)}"</span>)</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> randomRegistration(): String <span class="op">=</span> s<span class="st">"${Random.alphanumeric.take(7).mkString("")}"</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> randomPrice() <span class="op">=</span> <span class="dv">500</span> <span class="op">+</span> Random.nextInt(<span class="dv">5000</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> randomT1(): T1 <span class="op">=</span> {</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>      val makeModel <span class="op">=</span> randomMakeModel()</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>      T1(randomRegistration(), makeModel.make, makeModel.model, randomEngineSize())</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> randomT2(): T2 <span class="op">=</span> {</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>      val makeModel <span class="op">=</span> randomMakeModel()</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>      T2(makeModel.make, makeModel.model, randomEngineSize(), randomPrice())</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    val t1 <span class="op">=</span> Seq.fill(<span class="dv">10000</span>)(randomT1()).toDS()</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>    val t2 <span class="op">=</span> Seq.fill(<span class="dv">100000</span>)(randomT2()).toDS()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“23da12d0-eb29-46af-8c83-e96a81284e6c”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Setup <span class="cf">for</span> Skew Partitions:  Write to File</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>t1.write.<span class="bu">format</span>(<span class="st">"parquet"</span>).mode(<span class="st">"overwrite"</span>).save(<span class="st">"dbfs:/FileStore/tables/t1"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>t2.write.<span class="bu">format</span>(<span class="st">"parquet"</span>).mode(<span class="st">"overwrite"</span>).save(<span class="st">"dbfs:/FileStore/tables/t2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="mod-09-aqe-adapative-query-execution" class="level2">
+<h2 class="anchored" data-anchor-id="mod-09-aqe-adapative-query-execution">Mod 09 AQE: Adapative Query Execution</h2>
+<section id="lab-01-converting-sortmergejoin-into-a-broadcasthashjoin" class="level3">
+<h3 class="anchored" data-anchor-id="lab-01-converting-sortmergejoin-into-a-broadcasthashjoin">Lab 01: Converting SortMergeJoin into a BroadcastHashJoin</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“664b39bc-4550-4a7a-a263-0097c7bae2f5”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01a: Know the Data (Emp and Dept)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>display(spark.read.parquet(<span class="st">"dbfs:/FileStore/tables/emp_snappy.parquet/"</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>display(spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/dept_snappy.parquet/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“74afca02-1b6b-4522-ad7a-1895facb065e”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01b: Create DFs </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>empDF <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/emp_snappy.parquet/"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>deptDF <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/dept_snappy.parquet/"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert DF into Spark Views          </span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>empDF.createOrReplaceTempView(<span class="st">"emp_view"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>deptDF.createOrReplaceTempView(<span class="st">"dept_view"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“479cacd7-a693-49b4-936c-95033e4f52b5”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01c: Turn off both BroadcastHashJoins and AQE</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.autoBroadcastJoinThreshold"</span>,<span class="op">-</span><span class="dv">1</span>)  </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.enabled"</span>,<span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“319e480d-056b-4ec2-b89b-c38436c29aed”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01d: Do SortMergeJoin (Open any Job -&gt; SQL -&gt; Click on Description)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>display(empDF.join(deptDF, <span class="st">"dept"</span>).select(<span class="st">"last_name"</span>, <span class="st">"dept"</span>, <span class="st">"dept_name"</span>).limit(<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“3cde9d07-df09-4eca-a676-7d9284353d5b”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01e: Turn on BroadcastHashJoin and AQE and execute again.</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#         (Open any Job -&gt; SQL -&gt; Click on Description)</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#         Did Performance Improve based on Clock time compared to SortMergeJoin?</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.autoBroadcastJoinThreshold"</span>, <span class="dv">10485760</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.enabled"</span>,<span class="va">True</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>display(empDF.join(deptDF, <span class="st">"dept"</span>).select(<span class="st">"last_name"</span>, <span class="st">"dept"</span>, <span class="st">"dept_name"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-02-dynamic-coalesce-shuffle-partitions" class="level3">
+<h3 class="anchored" data-anchor-id="lab-02-dynamic-coalesce-shuffle-partitions">Lab 02: Dynamic Coalesce Shuffle Partitions</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“92af7e4e-62c5-4e4b-90ea-778b21aa43f6”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 02a: Configure settings to not use AQE first</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Disable BroadcastHashJoins to force a SortMergeJoin</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.autoBroadcastJoinThreshold"</span>,<span class="op">-</span><span class="dv">1</span>)  </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Disable AQE</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.enabled"</span>,<span class="va">False</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Force # of Shuffle Partitions = 50 as MAX. Default = 200</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.shuffle.partitions"</span>, <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“55430efc-b4cb-42e4-a92d-8de318e87162”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 02b: Know the Data</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>spark.read.load(<span class="st">"dbfs:/FileStore/tables/sample_parq/"</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"parquet"</span>).createOrReplaceTempView(<span class="st">"sample"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>spark.read.load(<span class="st">"dbfs:/FileStore/tables/lookup_parq/"</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"parquet"</span>).createOrReplaceTempView(<span class="st">"lookup"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Notice 'company_id' = 1 will be a large Partition when compared to rest when JOIN on 'company_id' column</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>display(spark.sql(<span class="st">"SELECT company_id, count(tx_id) as transactions FROM sample GROUP BY company_id ORDER BY transactions DESC LIMIT 10"</span>))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Here's other Table we will be JOINing</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>display(spark.sql(<span class="st">"SELECT * FROM lookup ORDER BY id"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“b27481f7-9b74-4eda-a4b9-c5dda0bae964”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 02c: Notice Hint to force SortMergeJoin (another Spark 3.x functionality)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#          From Spark UI -&gt; SQL -&gt; Notice Lack of 'CustomShuffleReader' in DAG</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>display(spark.sql(<span class="st">"SELECT /*+MERGE(sample, lookup)*/sample.tx_id, lookup.company FROM sample JOIN lookup ON sample.company_id = lookup.id"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“d4979106-6418-4bc3-88d2-c0528c029e3e”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 02d: Enable both AQE and Coalesce Partitions</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.enabled"</span>, <span class="va">True</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># When true and spark.sql.adaptive.enabled = true, Spark will coalesce contiguous shuffle partitions according to the target size </span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (specified by 'spark.sql.adaptive.advisoryPartitionSizeInBytes'), to avoid too many small tasks.</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.coalescePartitions"</span>, <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“b1ada9a6-5732-46d2-83b3-e85c578964eb”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 02e: Drop HINT to force SORT MERGE JOIN (instead of BroadcastHashJoin)</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># With AQE, it will Coalesce Shuffle Partitions</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Spark UI -&gt; SQL -&gt; Look for 'CustomShuffleReader'</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>display(spark.sql(<span class="st">"SELECT /*+MERGE(sample, lookup)*/ sample.tx_id, lookup.company, sample.field1 FROM sample JOIN lookup ON sample.company_id = lookup.id"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-03-aqe-handling-skew-partitions" class="level3">
+<h3 class="anchored" data-anchor-id="lab-03-aqe-handling-skew-partitions">Lab 03 AQE: Handling Skew Partitions</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“984ec2f2-839a-4a59-8d9c-4f0b352b7432”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">3a</span>: Load the Data</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>val t1DF <span class="op">=</span> spark.read.parquet(<span class="st">"dbfs:/FileStore/tables/t1/"</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>val t2DF <span class="op">=</span> spark.read.parquet(<span class="st">"dbfs:/FileStore/tables/t2/"</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>t1DF.createOrReplaceTempView(<span class="st">"t1_view"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>t2DF.createOrReplaceTempView(<span class="st">"t2_view"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“c567d10c-021a-4858-858f-c04419055e57”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">0</span><span class="er">3b</span>: Know the Data</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>SELECT <span class="op">*</span> FROM t1_view</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“2f0e23d3-dbca-4a42-b7d9-8203dc8bf80a”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">0</span><span class="er">3c</span>: Know the Data</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>SELECT <span class="op">*</span> FROM t2_view</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“a34feea9-53bb-4782-bb3e-698130a594ea”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">0</span><span class="er">3d</span>: Notice Skew <span class="cf">for</span> <span class="st">'Ford Fiesta'</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>SELECT make, model, count(<span class="op">*</span>) AS cnt FROM t2_view GROUP BY make, model ORDER BY cnt DESC</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“5776b7b4-868c-46ba-b46d-b9df74ed06f7”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">2</span>:  View Spark UI to find Bottleneck.  It<span class="st">'s a Skew Partition issue (2 minute query)</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="er">import org.apache.spark.sql.functions._</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="er">import scala.collection.Seq</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="er">// We disable Broadcast join and AQE, then JOIN on 'make' and 'model'</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="er">// In order to see our Skew happening, we need to suppress this behaviour</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="er">spark.conf.set("spark.sql.autoBroadcastJoinThreshold", -1)</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="er">spark.conf.set("spark.sql.adaptive.enabled",false)</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="er">// Skew eats up 2 Minutes in one of the Stages.  Ouch!!</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="er">display(t1DF.join(t2DF, Seq("make", "model"))</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="er">.filter(abs(t2DF("engine_size") - t1DF("engine_size")) &lt;= BigDecimal("0.1"))</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="er">  .groupBy("registration")</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="er">  .agg(avg("sale_price").as("average_price")).collect())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“b392d601-363d-4e50-a1e8-caf8f17c3de8”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">3e</span>: View Spark UI to find Bottleneck.  It<span class="st">'s a Skew Partition issue (2 minute query)</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="er">import org.apache.spark.sql.functions._</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="er">// We disable Broadcast join and AQE, then JOIN on 'make' and 'model'</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="er">// In order to see our Skew happening, we need to suppress this behaviour</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="er">spark.conf.set("spark.sql.autoBroadcastJoinThreshold", -1)</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="er">spark.conf.set("spark.sql.adaptive.enabled", false)</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="er">// Skew eats up 2 Minutes in one of the Stages.  Ouch!!</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="er">display(t1DF.join(t2DF, Seq("make", "model"))</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="er">   .filter(abs(t2DF("engine_size") - t1DF("engine_size")) &lt;= BigDecimal("0.1"))</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="er">  .groupBy("registration")</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="er">  .agg(avg("sale_price").as("average_price")).collect())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“764d8c30-079a-416e-bea9-705df0136c23”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">3f</span>: Let AQE <span class="kw">and</span> let it figure out the Skew problem <span class="kw">and</span> fix it automatically</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> First configure the Settings</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> org.apache.spark.sql.functions._</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> We disable Broadcast join <span class="kw">and</span> enable AQE</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> In order to see our skew happening, we need to suppress this behaviour</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.autoBroadcastJoinThreshold"</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.enabled"</span>, true)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> I added this to see <span class="cf">if</span> it would work</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Disable coalesce Partitions so Skew occurs</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.coalescePartitions.enabled"</span>, false)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.shuffle.partitions"</span>, <span class="dv">200</span>)</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> A Partition <span class="kw">is</span> considered <span class="im">as</span> skewed <span class="cf">if</span> its size <span class="kw">is</span> larger than this factor multiplying </span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> The median partition size <span class="kw">and</span> also larger than <span class="op">//</span>spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.skewedPartitionFactor"</span>, <span class="dv">2</span>)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> A Partition <span class="kw">is</span> considered  skewed <span class="cf">if</span> its size <span class="kw">in</span> <span class="bu">bytes</span> <span class="kw">is</span> larger than this threshold <span class="kw">and</span> larger than spark.sql.adaptive.skewJoin</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> skewedPartitionFactor multiplying the median partition size. </span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="op">//</span>Ideally this config should be <span class="bu">set</span> larger than spark.sql.adaptive.advisoryPartitionSizeInBytes.</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Was <span class="dv">1</span><span class="er">KB</span>, then <span class="dv">124</span> (<span class="fl">1.95</span>)</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.advisoryPartitionSizeInBytes"</span>, <span class="st">"1KB"</span>)</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Was <span class="dv">4</span><span class="er">KB</span> then <span class="dv">512</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes"</span>,<span class="st">"4KB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“503b53ca-7f97-40f3-a742-a810c48fb20f”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">3g</span>: Solution: Let AQE figure out the Skew problem <span class="kw">and</span> fix it automatically</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Keep tweaking above settings to get better Performance here</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>display(t1DF.join(t2DF, Seq(<span class="st">"make"</span>, <span class="st">"model"</span>))</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>.<span class="bu">filter</span>(<span class="bu">abs</span>(t2DF(<span class="st">"engine_size"</span>) <span class="op">-</span> t1DF(<span class="st">"engine_size"</span>)) <span class="op">&lt;=</span> BigDecimal(<span class="st">"0.1"</span>))</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  .groupBy(<span class="st">"registration"</span>)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  .agg(avg(<span class="st">"sale_price"</span>).<span class="im">as</span>(<span class="st">"average_price"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-04-dynamic-partition-pruning" class="level3">
+<h3 class="anchored" data-anchor-id="lab-04-dynamic-partition-pruning">Lab 04: Dynamic Partition Pruning</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“e54d71cb-c854-4ca4-aa89-4ded3ce6c3a5”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 04a: First, view Directory Partitions Folders (Partitioned by 'NeighborhoodDistrict')</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"dbfs:/FileStore/tables/fire_part/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“e97e98ba-ff26-448b-b6db-35f28329125e”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 04b: Load and View 'firePartition_view' </span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/fire_part"</span>).createOrReplaceTempView(<span class="st">"firePartition_view"</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>display(spark.sql(<span class="st">"SELECT * FROM firePartition_view LIMIT 5"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“3e4953a6-b16d-4acc-9609-5931cf787a86”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 04c: Load and View 'fireNonPart_view' (same Output as firePartition_view)</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/fire_nonpart"</span>).createOrReplaceTempView(<span class="st">"fireNonPart_view"</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>display(spark.sql(<span class="st">"SELECT * FROM fireNonPart_view LIMIT 5"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“9909fb31-2a18-4f17-85b6-23ef3c8027a1”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 04d: Create DIM object. Convert to Temp View</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>dimDF1 <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/dim01"</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>dimDF1.createOrReplaceTempView(<span class="st">"neighbor_view"</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>display(dimDF1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“b0a9e830-6d6e-42ef-9ff2-97beda842dc8”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Lab 04e: First, ensure Defaults are enabled for AQE</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.adaptive.enabled"</span>,<span class="va">True</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.optimizer.dynamicPartitionPruning.reuseBroadcastOnly"</span>, <span class="va">True</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.cbo.enabled"</span>, <span class="va">True</span>)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>spark.conf.<span class="bu">set</span>(<span class="st">"spark.sql.cbo.joinReorder.enabled"</span>, <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“31821c51-ef2c-4326-a154-79dbbd40c94b”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">0</span><span class="er">4f</span>: Dynamic Pruning (<span class="kw">and</span> FILTER) <span class="kw">is</span> taking place on large FACT table (firePartition_view)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="op">--</span>          Even though the WHERE clause only defines filtering on DIM table (neighbor_view)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>SELECT fact.NeighborhoodDistrict, dim.Neighborhood, fact.UnitType </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>FROM neighbor_view AS dim INNER JOIN firePartition_view AS fact </span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>ON dim.Neighborhood <span class="op">=</span> fact.NeighborhoodDistrict</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>WHERE dim.Neighborhood IN (<span class="st">'Golden Gate Park'</span>, <span class="st">'Twin Peaks'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“a2616a45-0a83-4f73-a2f6-3db089ea1adf”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">0</span><span class="er">4g</span>: Dynamic Pruning won<span class="st">'t happen if Fact Table NOT Partitioned</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="er">SELECT fact.NeighborhoodDistrict, dim.Neighborhood, fact.UnitType </span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="er">FROM neighbor_view AS dim INNER JOIN fireNonPart_view AS fact </span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="er">ON dim.Neighborhood = fact.NeighborhoodDistrict</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="er">WHERE dim.Neighborhood IN ('Golden Gate Park', 'Twin Peaks')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+</section>
+</section>
+<section id="end-of-module-09-aqe-adapative-query-execution" class="level1">
+<h1>End of Module 09: AQE (Adapative Query Execution)</h1>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

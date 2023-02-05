@@ -1,0 +1,30 @@
+---
+title: "Home"
+---
+
+## C7084 Big Data and Decision Making
+
+![](img/C7084-slide.png){fig-alt="C7084 title slide" fig-align="center" width="400"}
+
+Welcome to C7084. This module is a survey of aspects of applications and tools to to store, access and analyse "big data". There is an emphasis on practical applications using a series of **data stories** and **lab exercises**, along with **lectures** on selected topics and **readings**. A prerequisite is a basic working knowledge of Python programming and familiarity with cloud environments.
+
+<br>
+
+## C7084 Resources
+
+-   **Slack workspace** (for enrolled students)
+
+-   **Office hours** (Slack, Fridays by appointment)
+
+-   [Databricks knowledge base](https://www.databricks.com/resources)
+
+-   [Freecodecamp SQL](https://www.freecodecamp.org/news/sql-and-databases-full-course/)
+
+
+<br><br>
+
+## Harper Adams Data Science
+
+![](img/HDS.png){fig-alt="Harper Data Science" width="125"}
+
+This module is a part of the [MSc in Data Science for Global Agriculture, Food, and Environment](https://www.harper-adams.ac.uk/courses/postgraduate/201194/data-science-for-global-agriculture-food-and-environment "MSc in Data Science") at [Harper Adams University](https://www.harper-adams.ac.uk/ "Harper Adams University"), led by [Ed Harris](https://www.harper-adams.ac.uk/general/staff/profile/201620/Edwin-Harris/ "Ed's Faculty page").

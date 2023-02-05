@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>C7084-2022 Big Data – hackathon-01---airports-final(a</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../img/C7084-pad.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/C7084-pad.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Information</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">Schedule</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#hackathon-01-join-plane-data.csv-to-small.csv-to-airport-codes.txt" id="toc-hackathon-01-join-plane-data.csv-to-small.csv-to-airport-codes.txt" class="nav-link active" data-scroll-target="#hackathon-01-join-plane-data.csv-to-small.csv-to-airport-codes.txt">Hackathon 01: Join ‘plane-data.csv’ to ‘small.csv’ to ‘airport-codes.txt’</a>
+  <ul class="collapse">
+  <li><a href="#remove-any-null-rows-from-plane-data.csv" id="toc-remove-any-null-rows-from-plane-data.csv" class="nav-link" data-scroll-target="#remove-any-null-rows-from-plane-data.csv">1) Remove any NULL rows from ‘plane-data.csv’</a></li>
+  <li><a href="#manually-build-schema-column-names-and-data-types-for-small.csv" id="toc-manually-build-schema-column-names-and-data-types-for-small.csv" class="nav-link" data-scroll-target="#manually-build-schema-column-names-and-data-types-for-small.csv">2) Manually build Schema (Column names and Data types) for ‘small.csv’</a></li>
+  <li><a href="#remove-any-non-usa-countries-from-airport-codes.txt" id="toc-remove-any-non-usa-countries-from-airport-codes.txt" class="nav-link" data-scroll-target="#remove-any-non-usa-countries-from-airport-codes.txt">3) Remove any non-USA Countries from ‘airport-codes.txt’</a></li>
+  <li><a href="#write-most-efficient-code-for-query-below" id="toc-write-most-efficient-code-for-query-below" class="nav-link" data-scroll-target="#write-most-efficient-code-for-query-below">4) Write most efficient code for query below:</a></li>
+  <li><a href="#query-return-uniquecarrier-manufacturer-model-country-iata-depdelay-columns.-group-by-uniquecarrier-and-count-where-depdelay-3-hours" id="toc-query-return-uniquecarrier-manufacturer-model-country-iata-depdelay-columns.-group-by-uniquecarrier-and-count-where-depdelay-3-hours" class="nav-link" data-scroll-target="#query-return-uniquecarrier-manufacturer-model-country-iata-depdelay-columns.-group-by-uniquecarrier-and-count-where-depdelay-3-hours">5) Query: Return ‘UniqueCarrier’, ‘manufacturer’, ‘model’, ‘Country’, ‘IATA’, ‘DepDelay’ columns. Group by ‘UniqueCarrier’ and count where ‘DepDelay’ &gt; 3 hours</a></li>
+  <li><a href="#which-uniquecarrier-and-which-2-iata-have-most-departure-delay-flights-3-hours" id="toc-which-uniquecarrier-and-which-2-iata-have-most-departure-delay-flights-3-hours" class="nav-link" data-scroll-target="#which-uniquecarrier-and-which-2-iata-have-most-departure-delay-flights-3-hours">6) Which ‘UniqueCarrier’ and which 2 ‘IATA’ have most Departure Delay flights &gt; 3 hours?</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="hackathon-01-join-plane-data.csv-to-small.csv-to-airport-codes.txt" class="level2">
+<h2 class="anchored" data-anchor-id="hackathon-01-join-plane-data.csv-to-small.csv-to-airport-codes.txt">Hackathon 01: Join ‘plane-data.csv’ to ‘small.csv’ to ‘airport-codes.txt’</h2>
+<section id="remove-any-null-rows-from-plane-data.csv" class="level3">
+<h3 class="anchored" data-anchor-id="remove-any-null-rows-from-plane-data.csv">1) Remove any NULL rows from ‘plane-data.csv’</h3>
+</section>
+<section id="manually-build-schema-column-names-and-data-types-for-small.csv" class="level3">
+<h3 class="anchored" data-anchor-id="manually-build-schema-column-names-and-data-types-for-small.csv">2) Manually build Schema (Column names and Data types) for ‘small.csv’</h3>
+</section>
+<section id="remove-any-non-usa-countries-from-airport-codes.txt" class="level3">
+<h3 class="anchored" data-anchor-id="remove-any-non-usa-countries-from-airport-codes.txt">3) Remove any non-USA Countries from ‘airport-codes.txt’</h3>
+</section>
+<section id="write-most-efficient-code-for-query-below" class="level3">
+<h3 class="anchored" data-anchor-id="write-most-efficient-code-for-query-below">4) Write most efficient code for query below:</h3>
+</section>
+<section id="query-return-uniquecarrier-manufacturer-model-country-iata-depdelay-columns.-group-by-uniquecarrier-and-count-where-depdelay-3-hours" class="level3">
+<h3 class="anchored" data-anchor-id="query-return-uniquecarrier-manufacturer-model-country-iata-depdelay-columns.-group-by-uniquecarrier-and-count-where-depdelay-3-hours">5) Query: Return ‘UniqueCarrier’, ‘manufacturer’, ‘model’, ‘Country’, ‘IATA’, ‘DepDelay’ columns. Group by ‘UniqueCarrier’ and count where ‘DepDelay’ &gt; 3 hours</h3>
+</section>
+<section id="which-uniquecarrier-and-which-2-iata-have-most-departure-delay-flights-3-hours" class="level3">
+<h3 class="anchored" data-anchor-id="which-uniquecarrier-and-which-2-iata-have-most-departure-delay-flights-3-hours">6) Which ‘UniqueCarrier’ and which 2 ‘IATA’ have most Departure Delay flights &gt; 3 hours?</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“c60ca790-91d1-40ce-89fa-06da1e0f3217”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>fs ls dbfs:<span class="op">/</span>mnt<span class="op">/</span>training<span class="op">/</span>asa<span class="op">/</span>planes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<style scoped="">
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div>
+</div>
+<div class="cell-output cell-output-display">
+<style scoped="">
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">   at com.databricks.backend.daemon.data.client.DbfsClient.send0(DbfsClient.scala:120)
+    at com.databricks.backend.daemon.data.client.DbfsClient.sendIdempotent(DbfsClient.scala:68)
+    at com.databricks.backend.daemon.data.client.DatabricksFileSystemV1.listStatus(DatabricksFileSystemV1.scala:179)
+    at com.databricks.backend.daemon.data.client.DatabricksFileSystem.listStatus(DatabricksFileSystem.scala:150)
+    at com.databricks.backend.daemon.dbutils.FSUtils$.$anonfun$ls$1(DBUtilsCore.scala:154)
+    at com.databricks.backend.daemon.dbutils.FSUtils$.withFsSafetyCheck(DBUtilsCore.scala:91)
+    at com.databricks.backend.daemon.dbutils.FSUtils$.ls(DBUtilsCore.scala:153)
+    at com.databricks.dbutils_v1.impl.DbfsUtilsImpl.ls(DbfsUtilsImpl.scala:63)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$read$$iw$$iw$$iw$$iw$$iw$$iw.&lt;init&gt;(command-278702713210477:1)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$read$$iw$$iw$$iw$$iw$$iw.&lt;init&gt;(command-278702713210477:43)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$read$$iw$$iw$$iw$$iw.&lt;init&gt;(command-278702713210477:45)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$read$$iw$$iw$$iw.&lt;init&gt;(command-278702713210477:47)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$read$$iw$$iw.&lt;init&gt;(command-278702713210477:49)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$read$$iw.&lt;init&gt;(command-278702713210477:51)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$read.&lt;init&gt;(command-278702713210477:53)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$read$.&lt;init&gt;(command-278702713210477:57)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$read$.&lt;clinit&gt;(command-278702713210477)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$eval$.$print$lzycompute(&lt;notebook&gt;:7)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$eval$.$print(&lt;notebook&gt;:6)
+    at $linedec1237ea96e47ae84aa03b16ec6c92a25.$eval.$print(&lt;notebook&gt;)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+    at scala.tools.nsc.interpreter.IMain$ReadEvalPrint.call(IMain.scala:745)
+    at scala.tools.nsc.interpreter.IMain$Request.loadAndRun(IMain.scala:1021)
+    at scala.tools.nsc.interpreter.IMain.$anonfun$interpret$1(IMain.scala:574)
+    at scala.reflect.internal.util.ScalaClassLoader.asContext(ScalaClassLoader.scala:41)
+    at scala.reflect.internal.util.ScalaClassLoader.asContext$(ScalaClassLoader.scala:37)
+    at scala.reflect.internal.util.AbstractFileClassLoader.asContext(AbstractFileClassLoader.scala:41)
+    at scala.tools.nsc.interpreter.IMain.loadAndRunReq$1(IMain.scala:573)
+    at scala.tools.nsc.interpreter.IMain.interpret(IMain.scala:600)
+    at scala.tools.nsc.interpreter.IMain.interpret(IMain.scala:570)
+    at com.databricks.backend.daemon.driver.DriverILoop.execute(DriverILoop.scala:219)
+    at com.databricks.backend.daemon.driver.ScalaDriverLocal.$anonfun$repl$1(ScalaDriverLocal.scala:235)
+    at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+    at com.databricks.backend.daemon.driver.DriverLocal$TrapExitInternal$.trapExit(DriverLocal.scala:902)
+    at com.databricks.backend.daemon.driver.DriverLocal$TrapExit$.apply(DriverLocal.scala:855)
+    at com.databricks.backend.daemon.driver.ScalaDriverLocal.repl(ScalaDriverLocal.scala:235)
+    at com.databricks.backend.daemon.driver.DriverLocal.$anonfun$execute$13(DriverLocal.scala:541)
+    at com.databricks.logging.UsageLogging.$anonfun$withAttributionContext$1(UsageLogging.scala:266)
+    at scala.util.DynamicVariable.withValue(DynamicVariable.scala:62)
+    at com.databricks.logging.UsageLogging.withAttributionContext(UsageLogging.scala:261)
+    at com.databricks.logging.UsageLogging.withAttributionContext$(UsageLogging.scala:258)
+    at com.databricks.backend.daemon.driver.DriverLocal.withAttributionContext(DriverLocal.scala:50)
+    at com.databricks.logging.UsageLogging.withAttributionTags(UsageLogging.scala:305)
+    at com.databricks.logging.UsageLogging.withAttributionTags$(UsageLogging.scala:297)
+    at com.databricks.backend.daemon.driver.DriverLocal.withAttributionTags(DriverLocal.scala:50)
+    at com.databricks.backend.daemon.driver.DriverLocal.execute(DriverLocal.scala:518)
+    at com.databricks.backend.daemon.driver.DriverWrapper.$anonfun$tryExecutingCommand$1(DriverWrapper.scala:689)
+    at scala.util.Try$.apply(Try.scala:213)
+    at com.databricks.backend.daemon.driver.DriverWrapper.tryExecutingCommand(DriverWrapper.scala:681)
+    at com.databricks.backend.daemon.driver.DriverWrapper.getCommandOutputAndError(DriverWrapper.scala:522)
+    at com.databricks.backend.daemon.driver.DriverWrapper.executeCommand(DriverWrapper.scala:634)
+    at com.databricks.backend.daemon.driver.DriverWrapper.runInnerLoop(DriverWrapper.scala:427)
+    at com.databricks.backend.daemon.driver.DriverWrapper.runInner(DriverWrapper.scala:370)
+    at com.databricks.backend.daemon.driver.DriverWrapper.run(DriverWrapper.scala:221)
+    at java.lang.Thread.run(Thread.java:748)</div>
+</div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“02d3386a-4012-431d-9a02-6fd77d78ab13”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dbutils.fs.head(<span class="st">"dbfs:/mnt/training/asa/planes/plane-data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“d544ac80-89b9-44a3-9c70-faf86143b5a2”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>planeDF</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“4e1ee4d2-0fe6-40ff-b7f5-1c8c6c6d9bd6”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>fs ls dbfs:<span class="op">/</span>mnt<span class="op">/</span>training<span class="op">/</span>asa<span class="op">/</span>flights</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“60467ea7-6433-434f-ad48-fcd9d994b896”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dbutils.fs.head(<span class="st">"dbfs:/mnt/training/asa/flights/small.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“9dbbec07-03b6-4695-b128-81e1ebf6f22e”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>fs ls dbfs:<span class="op">/</span>mnt<span class="op">/</span>training<span class="op">/</span>asa<span class="op">/</span>airport<span class="op">-</span>codes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“0a3642ce-44ff-445e-a9be-35d025ff0a97”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dbutils.fs.head(<span class="st">"dbfs:/mnt/training/asa/airport-codes/airport-codes.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“da9db562-c630-42c2-9b9e-1063314d95bd”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>flightsDF <span class="op">=</span> spark.read.option(<span class="st">"header"</span>, <span class="va">True</span>).option(<span class="st">"inferSchema"</span>, <span class="va">True</span>).csv(<span class="st">"dbfs:/mnt/training/asa/flights/small.csv"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>flightsDF.createOrReplaceTempView(<span class="st">"flights_view"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>display(flightsDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“9388eb37-9be0-46a0-886b-444a1f3b643c”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Ensure DepDelay = integer</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>DDL_Schema <span class="op">=</span> (<span class="st">"Year integer,Month integer,DayofMonth integer,DayOfWeek integer,DepTime string,CRSDepTime integer,ArrTime string,CRSArrTime integer,UniqueCarrier string,FlightNum integer,TailNum string,ActualElapsedTime string,CRSElapsedTime integer,AirTime string,ArrDelay string,DepDelay integer,Origin string,Dest string,Distance integer,TaxiIn integer,TaxiOut integer,Cancelled integer,CancellationCode string,Diverted integer,CarrierDelay string,WeatherDelay string,NASDelay string,SecurityDelay string,LateAircraftDelay string"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“6d8e39e3-9f00-4816-8d8c-5294c4c8c866”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>flightsDF <span class="op">=</span> spark.read.option(<span class="st">"header"</span>, <span class="va">True</span>).schema(DDL_Schema).csv(<span class="st">"dbfs:/mnt/training/asa/flights/small.csv"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>flightsDF.createOrReplaceTempView(<span class="st">"flights_view"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>flightsDF <span class="op">=</span> flightsDF.select(<span class="st">"UniqueCarrier"</span>, <span class="st">"TailNum"</span>, <span class="st">"DepDelay"</span>, <span class="st">"Origin"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>display(flightsDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“215589c7-7614-4db0-ae12-9dda82f679b4”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>airportsDF <span class="op">=</span> spark.read.option(<span class="st">"header"</span>, <span class="va">True</span>).option(<span class="st">"inferSchema"</span>, <span class="va">True</span>).option(<span class="st">"sep"</span>, <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>).csv(<span class="st">"dbfs:/mnt/training/asa/airport-codes/airport-codes.txt"</span>).<span class="bu">filter</span>(<span class="st">"Country == 'USA'"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>airportsDF <span class="op">=</span> airportsDF.select(<span class="st">"Country"</span>, <span class="st">"IATA"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>airportsDF.createOrReplaceTempView(<span class="st">"airports_view"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>display(airportsDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“f3904091-c25e-415b-a892-aecc35905f64”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>planesDF <span class="op">=</span> spark.read.option(<span class="st">"header"</span>, <span class="va">True</span>).option(<span class="st">"inferSchema"</span>, <span class="va">True</span>).csv(<span class="st">"dbfs:/mnt/training/asa/planes/plane-data.csv"</span>).na.drop()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>planesDF <span class="op">=</span> planesDF.select(<span class="st">"tailnum"</span>, <span class="st">"manufacturer"</span>, <span class="st">"model"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>planesDF.createOrReplaceTempView(<span class="st">"planes_view"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>display(planesDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“8cefcfa4-8070-4e73-b2b4-d026cbf56a09”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Project <span class="st">'UniqueCarrier'</span>, <span class="st">'manufacturer'</span>, <span class="st">'engine_type'</span>, <span class="st">'Country'</span>, <span class="st">'IATA'</span>, <span class="st">'DepDelay'</span> columns WHERE <span class="st">'DepDelay'</span> <span class="op">&gt;</span> <span class="dv">3</span> hours</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Group by <span class="st">'DepDelay'</span> <span class="kw">and</span> Count</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Which <span class="st">'UniqueCarrier'</span> <span class="kw">and</span> which <span class="dv">2</span> <span class="st">'IATA'</span> have most Departure Delay flights <span class="op">&gt;</span> <span class="dv">3</span> hours?</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Efficient code:  Just columns needed <span class="im">from</span> <span class="dv">3</span> tables. <span class="st">'DepDelay'</span> <span class="op">=</span> Integer</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>SELECT f.UniqueCarrier, p.manufacturer, p.model, a.Country, a.IATA, count(f.DepDelay) <span class="im">as</span> CtDepDelay</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>FROM flights_view f JOIN planes_view p</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>ON f.TailNum <span class="op">=</span> p.tailnum</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>JOIN airports_view a </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>ON f.Origin <span class="op">=</span> a.IATA</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>WHERE f.DepDelay <span class="op">&gt;</span> <span class="dv">180</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>GROUP BY f.UniqueCarrier, p.manufacturer, p.model, a.Country, a.IATA</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>ORDER BY CtDepDelay DESC</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

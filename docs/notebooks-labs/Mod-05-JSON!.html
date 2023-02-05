@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>C7084-2022 Big Data – mod-05-json</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../img/C7084-pad.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/C7084-pad.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Information</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">Schedule</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#mod-05---json-objects" id="toc-mod-05---json-objects" class="nav-link active" data-scroll-target="#mod-05---json-objects">Mod 05 - JSON objects</a>
+  <ul class="collapse">
+  <li><a href="#lab-01-get_json_object" id="toc-lab-01-get_json_object" class="nav-link" data-scroll-target="#lab-01-get_json_object">Lab 01: ‘get_json_object’</a></li>
+  <li><a href="#lab-02-create-json-schema-using-struct" id="toc-lab-02-create-json-schema-using-struct" class="nav-link" data-scroll-target="#lab-02-create-json-schema-using-struct">Lab 02: Create JSON schema using STRUCT</a></li>
+  <li><a href="#lab-03-query-dataframe-using-selectexpr" id="toc-lab-03-query-dataframe-using-selectexpr" class="nav-link" data-scroll-target="#lab-03-query-dataframe-using-selectexpr">Lab 03: Query DataFrame using ‘selectExpr()’</a></li>
+  <li><a href="#lab-04-create-complex-data-type-schema-from-json-data" id="toc-lab-04-create-complex-data-type-schema-from-json-data" class="nav-link" data-scroll-target="#lab-04-create-complex-data-type-schema-from-json-data">Lab 04: Create Complex Data Type Schema from JSON Data</a></li>
+  <li><a href="#lab-05-create-json-schema-and-dataframe-using-getitem-for-next-lab" id="toc-lab-05-create-json-schema-and-dataframe-using-getitem-for-next-lab" class="nav-link" data-scroll-target="#lab-05-create-json-schema-and-dataframe-using-getitem-for-next-lab">Lab 05: Create JSON schema and DataFrame using ‘getItem()’ for next Lab</a></li>
+  </ul></li>
+  <li><a href="#end-of-mod-5-json" id="toc-end-of-mod-5-json" class="nav-link" data-scroll-target="#end-of-mod-5-json">End of Mod 5: JSON</a>
+  <ul class="collapse">
+  <li><a href="#ignore-past-here" id="toc-ignore-past-here" class="nav-link" data-scroll-target="#ignore-past-here">Ignore past here</a>
+  <ul class="collapse">
+  <li><a href="#create-dataframe-using-row-function" id="toc-create-dataframe-using-row-function" class="nav-link" data-scroll-target="#create-dataframe-using-row-function">Create Dataframe using Row function</a></li>
+  <li><a href="#union-2-dataframes" id="toc-union-2-dataframes" class="nav-link" data-scroll-target="#union-2-dataframes">Union 2 Dataframes</a></li>
+  <li><a href="#explode-the-employees-column" id="toc-explode-the-employees-column" class="nav-link" data-scroll-target="#explode-the-employees-column">‘explode’ the Employees column</a></li>
+  <li><a href="#filter-to-return-rows-that-match-a-predicate" id="toc-filter-to-return-rows-that-match-a-predicate" class="nav-link" data-scroll-target="#filter-to-return-rows-that-match-a-predicate">‘filter’ to return rows that match a Predicate</a></li>
+  <li><a href="#using-fillna-to-replace-null-values" id="toc-using-fillna-to-replace-null-values" class="nav-link" data-scroll-target="#using-fillna-to-replace-null-values">Using ‘fillna’ to replace ‘NULL’ values</a></li>
+  <li><a href="#using-isnull-retrieve-only-rows-with-missing-firstname-or-lastname" id="toc-using-isnull-retrieve-only-rows-with-missing-firstname-or-lastname" class="nav-link" data-scroll-target="#using-isnull-retrieve-only-rows-with-missing-firstname-or-lastname">Using ‘isNull’, Retrieve only rows with missing firstName or lastName</a></li>
+  <li><a href="#example-aggregations-using-agg-and-countdistinct" id="toc-example-aggregations-using-agg-and-countdistinct" class="nav-link" data-scroll-target="#example-aggregations-using-agg-and-countdistinct">Example aggregations using ‘agg’ and ‘countDistinct’</a></li>
+  <li><a href="#explain" id="toc-explain" class="nav-link" data-scroll-target="#explain">‘Explain’</a></li>
+  <li><a href="#createorreplacetempview-to-convert-dataframe-into-temp-view-so-can-query-via-sql" id="toc-createorreplacetempview-to-convert-dataframe-into-temp-view-so-can-query-via-sql" class="nav-link" data-scroll-target="#createorreplacetempview-to-convert-dataframe-into-temp-view-so-can-query-via-sql">‘createOrReplaceTempView’ to convert Dataframe into Temp View so can query via SQL</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="mod-05---json-objects" class="level1">
+<h1>Mod 05 - JSON objects</h1>
+<section id="lab-01-get_json_object" class="level3">
+<h3 class="anchored" data-anchor-id="lab-01-get_json_object">Lab 01: ‘get_json_object’</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“e498770f-d265-4b16-a607-31a5352827b6”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01a: Create DataFrame first</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> get_json_object</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [(<span class="st">"1"</span>, <span class="st">'''{"f1": "Mark", "f2": "Ott"}'''</span>), (<span class="st">"2"</span>, <span class="st">'''{"f1": "Jarrod"}'''</span>)]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> spark.createDataFrame(data, (<span class="st">"key"</span>, <span class="st">"jstring"</span>))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>display(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“dedeae4c-1ed6-400d-81d9-6b36558f67a8”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01b: Pluck out f1 and f2</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df.select(df.key, get_json_object(df.jstring, <span class="st">'$.f1'</span>).alias(<span class="st">"c0"</span>), <span class="op">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                  get_json_object(df.jstring, <span class="st">'$.f2'</span>).alias(<span class="st">"c1"</span>) ).show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“fb1130be-af56-4002-9af0-4255ed484674”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">1c</span>: Create DataFrame</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>val eventsFromJSONDF <span class="op">=</span> Seq (</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a> (<span class="dv">0</span>, <span class="st">"""{"device_id": 0, "device_type": "sensor-ipad", "ip": "68.161.225.1", "cca3": "USA", "cn": "United States", "temp": 25, "signal": 23, "battery_level": 8, "c02_level": 917, "timestamp" :1475600496 }"""</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> (<span class="dv">1</span>, <span class="st">"""{"device_id": 1, "device_type": "sensor-igauge", "ip": "213.161.254.1", "cca3": "NOR", "cn": "Norway", "temp": 30, "signal": 18, "battery_level": 6, "c02_level": 1413, "timestamp" :1475600498 }"""</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> (<span class="dv">2</span>, <span class="st">"""{"device_id": 2, "device_type": "sensor-ipad", "ip": "88.36.5.1", "cca3": "ITA", "cn": "Italy", "temp": 18, "signal": 25, "battery_level": 5, "c02_level": 1372, "timestamp" :1475600500 }"""</span>),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a> (<span class="dv">3</span>, <span class="st">"""{"device_id": 3, "device_type": "sensor-inest", "ip": "66.39.173.154", "cca3": "USA", "cn": "United States", "temp": 47, "signal": 12, "battery_level": 1, "c02_level": 1447, "timestamp" :1475600502 }"""</span>),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>(<span class="dv">4</span>, <span class="st">"""{"device_id": 4, "device_type": "sensor-ipad", "ip": "203.82.41.9", "cca3": "PHL", "cn": "Philippines", "temp": 29, "signal": 11, "battery_level": 0, "c02_level": 983, "timestamp" :1475600504 }"""</span>),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>(<span class="dv">5</span>, <span class="st">"""{"device_id": 5, "device_type": "sensor-istick", "ip": "204.116.105.67", "cca3": "USA", "cn": "United States", "temp": 50, "signal": 16, "battery_level": 8, "c02_level": 1574, "timestamp" :1475600506 }"""</span>),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>(<span class="dv">6</span>, <span class="st">"""{"device_id": 6, "device_type": "sensor-ipad", "ip": "220.173.179.1", "cca3": "CHN", "cn": "China", "temp": 21, "signal": 18, "battery_level": 9, "c02_level": 1249, "timestamp" :1475600508 }"""</span>),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>(<span class="dv">7</span>, <span class="st">"""{"device_id": 7, "device_type": "sensor-ipad", "ip": "118.23.68.227", "cca3": "JPN", "cn": "Japan", "temp": 27, "signal": 15, "battery_level": 0, "c02_level": 1531, "timestamp" :1475600512 }"""</span>),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>(<span class="dv">8</span> ,<span class="st">""" {"device_id": 8, "device_type": "sensor-inest", "ip": "208.109.163.218", "cca3": "USA", "cn": "United States", "temp": 40, "signal": 16, "battery_level": 9, "c02_level": 1208, "timestamp" :1475600514 }"""</span>),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>(<span class="dv">9</span>,<span class="st">"""{"device_id": 9, "device_type": "sensor-ipad", "ip": "88.213.191.34", "cca3": "ITA", "cn": "Italy", "temp": 19, "signal": 11, "battery_level": 0, "c02_level": 1171, "timestamp" :1475600516 }"""</span>)).toDF(<span class="st">"id"</span>, <span class="st">"json"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>display(eventsFromJSONDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“94fd49ce-dcef-454f-942f-7ecb83f1b106”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">1d</span>:  Query DataFrame via <span class="st">'get_json_object'</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> org.apache.spark.sql.functions.get_json_object</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                               </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> val jsDF <span class="op">=</span> eventsFromJSONDF.select($<span class="st">"id"</span>, get_json_object($<span class="st">"json"</span>, <span class="st">"$.device_type"</span>).alias(<span class="st">"device_type"</span>),get_json_object($<span class="st">"json"</span>, <span class="st">"$.ip"</span>).alias(<span class="st">"ip"</span>), get_json_object($<span class="st">"json"</span>, <span class="st">"$.cca3"</span>).alias(<span class="st">"cca3"</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>display(jsDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-02-create-json-schema-using-struct" class="level3">
+<h3 class="anchored" data-anchor-id="lab-02-create-json-schema-using-struct">Lab 02: Create JSON schema using STRUCT</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“c14b6973-b809-47a8-aef7-dd013ebc38ab”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">2a</span>: Create JSON Schema using STRUCT</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> org.apache.spark.sql.types._                         <span class="op">//</span> include the Spark Types to define our schema</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> org.apache.spark.sql.functions._                     <span class="op">//</span> include the Spark helper functions</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>val jsonSchema <span class="op">=</span> new StructType().add(<span class="st">"battery_level"</span>, LongType).add(<span class="st">"c02_level"</span>, LongType).add(<span class="st">"cca3"</span>,StringType).add(<span class="st">"cn"</span>, StringType).add(<span class="st">"device_id"</span>, LongType).add(<span class="st">"device_type"</span>, StringType).add(<span class="st">"signal"</span>, LongType).add(<span class="st">"ip"</span>, StringType).add(<span class="st">"temp"</span>, LongType).add(<span class="st">"timestamp"</span>, TimestampType)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“2f6cbb5b-16e0-417c-bcca-083dc80181ae”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">2b</span>: Create DataFrame using Schema <span class="im">from</span> previous Cell</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> org.apache.spark.sql.types._                         <span class="op">//</span> include the Spark Types to define our schema</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> org.apache.spark.sql.functions._                     <span class="op">//</span> include the Spark helper functions</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Define a case <span class="kw">class</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="kw">class</span> DeviceData (<span class="bu">id</span>: Int, device: String)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Create some sample data</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>val eventsDS <span class="op">=</span> Seq (</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a> (<span class="dv">0</span>, <span class="st">"""{"device_id": 0, "device_type": "sensor-ipad", "ip": "68.161.225.1", "cca3": "USA", "cn": "United States", "temp": 25, "signal": 23, "battery_level": 8, "c02_level": 917, "timestamp" :1475600496 }"""</span>),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a> (<span class="dv">1</span>, <span class="st">"""{"device_id": 1, "device_type": "sensor-igauge", "ip": "213.161.254.1", "cca3": "NOR", "cn": "Norway", "temp": 30, "signal": 18, "battery_level": 6, "c02_level": 1413, "timestamp" :1475600498 }"""</span>),</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a> (<span class="dv">2</span>, <span class="st">"""{"device_id": 2, "device_type": "sensor-ipad", "ip": "88.36.5.1", "cca3": "ITA", "cn": "Italy", "temp": 18, "signal": 25, "battery_level": 5, "c02_level": 1372, "timestamp" :1475600500 }"""</span>),</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a> (<span class="dv">3</span>, <span class="st">"""{"device_id": 3, "device_type": "sensor-inest", "ip": "66.39.173.154", "cca3": "USA", "cn": "United States", "temp": 47, "signal": 12, "battery_level": 1, "c02_level": 1447, "timestamp" :1475600502 }"""</span>),</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>(<span class="dv">4</span>, <span class="st">"""{"device_id": 4, "device_type": "sensor-ipad", "ip": "203.82.41.9", "cca3": "PHL", "cn": "Philippines", "temp": 29, "signal": 11, "battery_level": 0, "c02_level": 983, "timestamp" :1475600504 }"""</span>),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>(<span class="dv">5</span>, <span class="st">"""{"device_id": 5, "device_type": "sensor-istick", "ip": "204.116.105.67", "cca3": "USA", "cn": "United States", "temp": 50, "signal": 16, "battery_level": 8, "c02_level": 1574, "timestamp" :1475600506 }"""</span>),</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>(<span class="dv">6</span>, <span class="st">"""{"device_id": 6, "device_type": "sensor-ipad", "ip": "220.173.179.1", "cca3": "CHN", "cn": "China", "temp": 21, "signal": 18, "battery_level": 9, "c02_level": 1249, "timestamp" :1475600508 }"""</span>),</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>(<span class="dv">7</span>, <span class="st">"""{"device_id": 7, "device_type": "sensor-ipad", "ip": "118.23.68.227", "cca3": "JPN", "cn": "Japan", "temp": 27, "signal": 15, "battery_level": 0, "c02_level": 1531, "timestamp" :1475600512 }"""</span>),</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>(<span class="dv">8</span> ,<span class="st">""" {"device_id": 8, "device_type": "sensor-inest", "ip": "208.109.163.218", "cca3": "USA", "cn": "United States", "temp": 40, "signal": 16, "battery_level": 9, "c02_level": 1208, "timestamp" :1475600514 }"""</span>),</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>(<span class="dv">9</span>,<span class="st">"""{"device_id": 9, "device_type": "sensor-ipad", "ip": "88.213.191.34", "cca3": "ITA", "cn": "Italy", "temp": 19, "signal": 11, "battery_level": 0, "c02_level": 1171, "timestamp" :1475600516 }"""</span>),</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>(<span class="dv">10</span>,<span class="st">"""{"device_id": 10, "device_type": "sensor-igauge", "ip": "68.28.91.22", "cca3": "USA", "cn": "United States", "temp": 32, "signal": 26, "battery_level": 7, "c02_level": 886, "timestamp" :1475600518 }"""</span>),</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>(<span class="dv">11</span>,<span class="st">"""{"device_id": 11, "device_type": "sensor-ipad", "ip": "59.144.114.250", "cca3": "IND", "cn": "India", "temp": 46, "signal": 25, "battery_level": 4, "c02_level": 863, "timestamp" :1475600520 }"""</span>),</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>(<span class="dv">12</span>, <span class="st">"""{"device_id": 12, "device_type": "sensor-igauge", "ip": "193.156.90.200", "cca3": "NOR", "cn": "Norway", "temp": 18, "signal": 26, "battery_level": 8, "c02_level": 1220, "timestamp" :1475600522 }"""</span>),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>(<span class="dv">13</span>, <span class="st">"""{"device_id": 13, "device_type": "sensor-ipad", "ip": "67.185.72.1", "cca3": "USA", "cn": "United States", "temp": 34, "signal": 20, "battery_level": 8, "c02_level": 1504, "timestamp" :1475600524 }"""</span>),</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>(<span class="dv">14</span>, <span class="st">"""{"device_id": 14, "device_type": "sensor-inest", "ip": "68.85.85.106", "cca3": "USA", "cn": "United States", "temp": 39, "signal": 17, "battery_level": 8, "c02_level": 831, "timestamp" :1475600526 }"""</span>),</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>(<span class="dv">15</span>, <span class="st">"""{"device_id": 15, "device_type": "sensor-ipad", "ip": "161.188.212.254", "cca3": "USA", "cn": "United States", "temp": 27, "signal": 26, "battery_level": 5, "c02_level": 1378, "timestamp" :1475600528 }"""</span>),</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>(<span class="dv">16</span>, <span class="st">"""{"device_id": 16, "device_type": "sensor-igauge", "ip": "221.3.128.242", "cca3": "CHN", "cn": "China", "temp": 10, "signal": 24, "battery_level": 6, "c02_level": 1423, "timestamp" :1475600530 }"""</span>),</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>(<span class="dv">17</span>, <span class="st">"""{"device_id": 17, "device_type": "sensor-ipad", "ip": "64.124.180.215", "cca3": "USA", "cn": "United States", "temp": 38, "signal": 17, "battery_level": 9, "c02_level": 1304, "timestamp" :1475600532 }"""</span>),</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>(<span class="dv">18</span>, <span class="st">"""{"device_id": 18, "device_type": "sensor-igauge", "ip": "66.153.162.66", "cca3": "USA", "cn": "United States", "temp": 26, "signal": 10, "battery_level": 0, "c02_level": 902, "timestamp" :1475600534 }"""</span>),</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>(<span class="dv">19</span>, <span class="st">"""{"device_id": 19, "device_type": "sensor-ipad", "ip": "193.200.142.254", "cca3": "AUT", "cn": "Austria", "temp": 32, "signal": 27, "battery_level": 5, "c02_level": 1282, "timestamp" :1475600536 }"""</span>)).toDF(<span class="st">"id"</span>, <span class="st">"device"</span>).<span class="im">as</span>[DeviceData]</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>display(eventsDS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“1cec3fc0-0983-4e62-abd5-bcbbbacd13ef”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">2c</span>: Query DataFrame via <span class="st">'from_json'</span> (Convert JSON String to STRUCT Schema)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>val devicesDF <span class="op">=</span> eventsDS.select(from_json($<span class="st">"device"</span>, jsonSchema) <span class="im">as</span> <span class="st">"devices"</span>).select($<span class="st">"devices.*"</span>).<span class="bu">filter</span>($<span class="st">"devices.temp"</span> <span class="op">&gt;</span> <span class="dv">10</span> <span class="kw">and</span> $<span class="st">"devices.signal"</span> <span class="op">&gt;</span> <span class="dv">15</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>display(devicesDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“997bc053-6a45-450d-ad3d-2119e1b4b4c4”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">2d</span>: Query DataFrame via <span class="st">'to_json'</span> (Convert STRUCT Schema to JSON String)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>val stringJsonDF <span class="op">=</span> eventsDS.select(to_json(struct($<span class="st">"*"</span>))).toDF(<span class="st">"devices"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>display(stringJsonDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-03-query-dataframe-using-selectexpr" class="level3">
+<h3 class="anchored" data-anchor-id="lab-03-query-dataframe-using-selectexpr">Lab 03: Query DataFrame using ‘selectExpr()’</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“bfe209df-fe0e-4239-9181-21b9ae463204”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">3</span>: Query DataFrame via <span class="st">'selectExpr'</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>val stringsDF <span class="op">=</span> eventsDS.selectExpr(<span class="st">"CAST(id AS INT)"</span>, <span class="st">"CAST(device AS STRING)"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>stringsDF.printSchema</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>stringsDF.show(<span class="dv">4</span>, false)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>devicesDF.selectExpr(<span class="st">"c02_level"</span>, <span class="st">"round(c02_level/temp) as ratio_c02_temperature"</span>).orderBy($<span class="st">"ratio_c02_temperature"</span> desc).show(<span class="dv">4</span>, false)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-04-create-complex-data-type-schema-from-json-data" class="level3">
+<h3 class="anchored" data-anchor-id="lab-04-create-complex-data-type-schema-from-json-data">Lab 04: Create Complex Data Type Schema from JSON Data</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“6db0b952-5a19-4f50-9ad7-cd7e9aee71d9”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">4a</span>: Create Complex Data Type scheams <span class="im">from</span> JSON data</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> org.apache.spark.sql.types._</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>val schema1 <span class="op">=</span> new StructType()</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  .add(<span class="st">"dc_id"</span>, StringType)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  .add(<span class="st">"source"</span>,                                       <span class="op">//</span> Info about the source of alarm</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    MapType(                                           <span class="op">//</span> Define this <span class="im">as</span> a Map(Key<span class="op">-&gt;</span>value)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      StringType,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      new StructType()</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>      .add(<span class="st">"description"</span>, StringType)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>      .add(<span class="st">"ip"</span>, StringType)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>      .add(<span class="st">"id"</span>, LongType)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>      .add(<span class="st">"temp"</span>, LongType)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>      .add(<span class="st">"c02_level"</span>, LongType)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>      .add(<span class="st">"geo"</span>, </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>         new StructType()</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>          .add(<span class="st">"lat"</span>, DoubleType)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>          .add(<span class="st">"long"</span>, DoubleType)  )))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“637e21eb-d37f-493b-a8e2-5dd75013bd51”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">4b</span>: Create single row <span class="bu">complex</span> JSON DataFrame</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>val dataDS <span class="op">=</span> Seq(<span class="st">"""</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">"dc_id": "dc-101",</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="st">"source": {</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="st">    "sensor-igauge": {</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">      "id": 10,</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="st">      "ip": "68.28.91.22",</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="st">      "description": "Sensor attached to the container ceilings",</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="st">      "temp":35,</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="st">      "c02_level": 1475,</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="st">      "geo": {"lat":38.00, "long":97.00}                        </span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="st">    },</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="st">    "sensor-ipad": {</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="st">      "id": 13,</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="st">      "ip": "67.185.72.1",</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="st">      "description": "Sensor ipad attached to carbon cylinders",</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="st">      "temp": 34,</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="st">      "c02_level": 1370,</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="st">      "geo": {"lat":47.41, "long":-122.00}</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="st">    },</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="st">    "sensor-inest": {</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="st">      "id": 8,</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="st">      "ip": "208.109.163.218",</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="st">      "description": "Sensor attached to the factory ceilings",</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="st">      "temp": 40,</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="st">      "c02_level": 1346,</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="st">      "geo": {"lat":33.61, "long":-111.89}</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="st">    },</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="st">     "sensor-istick": {</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="st">      "id": 5,</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="st">      "ip": "204.116.105.67",</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="st">      "description": "Sensor embedded in exhaust pipes in the ceilings",</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="st">      "temp": 40,</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="st">      "c02_level": 1574,</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="st">      "geo": {"lat":35.93, "long":-85.46}</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="st">}"""</span>).toDS()</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>display(dataDS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“d5839742-392d-4928-bac9-dc5361980c89”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">4c</span>: Query the JSON DataFrame</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>val df <span class="op">=</span> spark.read.schema(schema1).json(dataDS)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>df.printSchema </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“4353c997-df70-4049-a89b-0a84106c11b4”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">4d</span>: Query the JSON DataFrame</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>display(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“7fdedcbc-2d02-4db3-abc8-af77cf3dd31f”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">4e</span>: Query the JSON DataFrame via <span class="st">'explode'</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>val explodedDF <span class="op">=</span> df.select($<span class="st">"dc_id"</span>, explode($<span class="st">"source"</span>))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>explodedDF.printSchema</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>explodedDF.show(<span class="dv">4</span>, false) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-05-create-json-schema-and-dataframe-using-getitem-for-next-lab" class="level3">
+<h3 class="anchored" data-anchor-id="lab-05-create-json-schema-and-dataframe-using-getitem-for-next-lab">Lab 05: Create JSON schema and DataFrame using ‘getItem()’ for next Lab</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“5c2108d3-9b45-48dd-a885-bbebce7e9a5c”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">5a</span>: Create Schema <span class="kw">and</span> DF using <span class="st">'getItem'</span> <span class="cf">for</span> <span class="bu">next</span> lab</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="op">//</span>case <span class="kw">class</span> to denote our desired Scala <span class="bu">object</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="kw">class</span> DeviceAlert(dcId: String, deviceType:String, ip:String, deviceId:Long, temp:Long, c02_level: Long, lat: Double, lon: Double)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Access <span class="bu">all</span> values using getItem() on value, by providing the <span class="st">"Key,"</span> which <span class="kw">is</span> attribute <span class="kw">in</span> JSON </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>val notifydevicesDS <span class="op">=</span> explodedDF.select( $<span class="st">"dc_id"</span> <span class="im">as</span> <span class="st">"dcId"</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                        $<span class="st">"key"</span> <span class="im">as</span> <span class="st">"deviceType"</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'value.getItem("ip") as '</span>ip,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'value.getItem("id") as '</span>deviceId,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'value.getItem("c02_level") as '</span>c02_level,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'value.getItem("temp") as '</span>temp,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'value.getItem("geo").getItem("lat") as '</span>lat,          <span class="op">//</span> <span class="dv">2</span><span class="er">nd</span> level needs level of fetching</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'value.getItem("geo").getItem("long") as '</span>lon)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>                        .<span class="im">as</span>[DeviceAlert]                          <span class="op">//</span> Return <span class="im">as</span> a Dataset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“dc4fdec0-d8bb-4824-b10f-e56e826f4a13”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Lab <span class="dv">0</span><span class="er">5b</span>: Query the JSON DataFrame <span class="im">from</span> previous lab </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>notifydevicesDS.printSchema</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>notifydevicesDS.show(<span class="dv">4</span>, false)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+</section>
+<section id="end-of-mod-5-json" class="level1">
+<h1>End of Mod 5: JSON</h1>
+<section id="ignore-past-here" class="level2">
+<h2 class="anchored" data-anchor-id="ignore-past-here">Ignore past here</h2>
+<section id="create-dataframe-using-row-function" class="level3">
+<h3 class="anchored" data-anchor-id="create-dataframe-using-row-function">Create Dataframe using Row function</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“5dfea89f-f72e-459b-86a6-d10c8949e67a”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>py</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01a: </span><span class="al">WARNING</span><span class="co">:  This is WIP (needs fixing)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import pyspark class Row from module sql</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Example Data - Departments and Employees</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Departments</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>department1 <span class="op">=</span> Row(<span class="bu">id</span><span class="op">=</span><span class="st">'123456'</span>, name<span class="op">=</span><span class="st">'Computer Science'</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>department2 <span class="op">=</span> Row(<span class="bu">id</span><span class="op">=</span><span class="st">'789012'</span>, name<span class="op">=</span><span class="st">'Mechanical Engineering'</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>department3 <span class="op">=</span> Row(<span class="bu">id</span><span class="op">=</span><span class="st">'345678'</span>, name<span class="op">=</span><span class="st">'Theater and Drama'</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>department4 <span class="op">=</span> Row(<span class="bu">id</span><span class="op">=</span><span class="st">'901234'</span>, name<span class="op">=</span><span class="st">'Indoor Recreation'</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Employees (Notice nesting data type in a data type)</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>Employee <span class="op">=</span> Row(<span class="st">"firstName"</span>, <span class="st">"lastName"</span>, <span class="st">"email"</span>, <span class="st">"salary"</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>employee1 <span class="op">=</span> Employee(<span class="st">'mark'</span>, <span class="st">'ott'</span>, <span class="st">'no-reply@berkeley.edu'</span>, <span class="dv">100000</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>employee2 <span class="op">=</span> Employee(<span class="st">'jarrod'</span>, <span class="st">'johnson'</span>, <span class="st">'no-reply@stanford.edu'</span>, <span class="dv">120000</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>employee3 <span class="op">=</span> Employee(<span class="st">'karen'</span>, <span class="va">None</span>, <span class="st">'no-reply@waterloo.edu'</span>, <span class="dv">140000</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>employee4 <span class="op">=</span> Employee(<span class="va">None</span>, <span class="st">'nimitz'</span>, <span class="st">'no-reply@berkeley.edu'</span>, <span class="dv">160000</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>employee5 <span class="op">=</span> Employee(<span class="st">'mark'</span>, <span class="st">'maryott'</span>, <span class="st">'no-reply@neverla.nd'</span>, <span class="dv">80000</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the DepartmentWithEmployees instances from Departments and Employees</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>departmentWithEmployees1 <span class="op">=</span> Row(department<span class="op">=</span>department1, employees<span class="op">=</span>[employee1, employee2])</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>departmentWithEmployees2 <span class="op">=</span> Row(department<span class="op">=</span>department2, employees<span class="op">=</span>[employee3, employee4])</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>departmentWithEmployees3 <span class="op">=</span> Row(department<span class="op">=</span>department3, employees<span class="op">=</span>[employee5, employee4])</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>departmentWithEmployees4 <span class="op">=</span> Row(department<span class="op">=</span>department4, employees<span class="op">=</span>[employee2, employee3])</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co">##############################################</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the temperature (Notice nesting data type in a data type)</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>header1 <span class="op">=</span> Row(<span class="st">"dt"</span>, <span class="st">"city"</span>, <span class="st">"email"</span>, <span class="st">"mytemp"</span>)</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>employee1 <span class="op">=</span> header1(<span class="st">'2019-07-23'</span>, <span class="st">'Cincinnati'</span>, <span class="st">'no-reply@berkeley.edu'</span>, <span class="dv">100000</span>)</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>employee2 <span class="op">=</span> header1(<span class="st">'jarrod'</span>, <span class="st">'johnson'</span>, <span class="st">'no-reply@stanford.edu'</span>, <span class="dv">120000</span>)</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the DepartmentWithEmployees instances from Departments and Employees</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>departmentWithEmployees1 <span class="op">=</span> Row(department<span class="op">=</span>department1, employees<span class="op">=</span>[employee1, employee2])</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>departmentWithEmployees2 <span class="op">=</span> Row(department<span class="op">=</span>department2, employees<span class="op">=</span>[employee3, employee4])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“60005d8d-6b35-4f6f-8f2a-c116b9efeadd”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>py</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01b:  Use 'createDataFrame' to create Dataframe from list of rows</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>departmentsWithEmployeesSeq1 <span class="op">=</span> [departmentWithEmployees1, departmentWithEmployees2]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> spark.createDataFrame(departmentsWithEmployeesSeq1)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>departmentsWithEmployeesSeq2 <span class="op">=</span> [departmentWithEmployees3, departmentWithEmployees4]</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> spark.createDataFrame(departmentsWithEmployeesSeq2)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>df1.show(<span class="dv">20</span>, <span class="va">False</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>df2.show(<span class="dv">20</span>, <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“cf72e26e-96ab-47d6-986c-1ad117d5d3dc”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01c:  View Data types</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>df1.printSchema()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“59576ebe-2553-466d-9614-bd7c93066a51”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>py</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01d:  Use 'display' to view entire Dataframe contents</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>display(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="union-2-dataframes" class="level3">
+<h3 class="anchored" data-anchor-id="union-2-dataframes">Union 2 Dataframes</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“25c2e244-c271-4b67-a620-1e1ab0ced929”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>unionDF <span class="op">=</span> df1.union(df2)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>display(unionDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="explode-the-employees-column" class="level3">
+<h3 class="anchored" data-anchor-id="explode-the-employees-column">‘explode’ the Employees column</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“7d007b83-2cb0-4dc2-b307-27ad87eee6af”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>py</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> explode</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Explode takes single row of values and generates multiple ros (1-M)</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Used frequently with Complex Data types (more on that later)</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>explodeDF <span class="op">=</span> unionDF.select(explode(<span class="st">"employees"</span>).alias(<span class="st">"e"</span>))</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>flattenDF <span class="op">=</span> explodeDF.selectExpr(<span class="st">"e.firstName"</span>, <span class="st">"e.lastName"</span>, <span class="st">"e.email"</span>, <span class="st">"e.salary"</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>display(flattenDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="filter-to-return-rows-that-match-a-predicate" class="level3">
+<h3 class="anchored" data-anchor-id="filter-to-return-rows-that-match-a-predicate">‘filter’ to return rows that match a Predicate</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“b213d843-1085-462d-9405-83e07da7d3bb”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> col, asc</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `|` instead of `or`</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>filterDF <span class="op">=</span> flattenDF.<span class="bu">filter</span>((col(<span class="st">"firstName"</span>) <span class="op">==</span> <span class="st">"mark"</span>) <span class="op">|</span> (col(<span class="st">"firstName"</span>) <span class="op">==</span> <span class="st">"jarrod"</span>)).sort(asc(<span class="st">"lastName"</span>))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>display(filterDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="using-fillna-to-replace-null-values" class="level3">
+<h3 class="anchored" data-anchor-id="using-fillna-to-replace-null-values">Using ‘fillna’ to replace ‘NULL’ values</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“d0b3ca89-d043-4cd9-8e88-4dca39c16517”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>nonNullDF <span class="op">=</span> flattenDF.fillna(<span class="st">"--"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>display(nonNullDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="using-isnull-retrieve-only-rows-with-missing-firstname-or-lastname" class="level3">
+<h3 class="anchored" data-anchor-id="using-isnull-retrieve-only-rows-with-missing-firstname-or-lastname">Using ‘isNull’, Retrieve only rows with missing firstName or lastName</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“e74fc82d-2428-49ff-af69-12d42c7e8a1d”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>filterNonNullDF <span class="op">=</span> flattenDF.<span class="bu">filter</span>(col(<span class="st">"firstName"</span>).isNull() <span class="op">|</span> col(<span class="st">"lastName"</span>).isNull()).sort(<span class="st">"email"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>display(filterNonNullDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="example-aggregations-using-agg-and-countdistinct" class="level3">
+<h3 class="anchored" data-anchor-id="example-aggregations-using-agg-and-countdistinct">Example aggregations using ‘agg’ and ‘countDistinct’</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“07a8ede2-4fc6-4eab-b0e6-68d27b74309c”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> countDistinct</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>countDistinctDF <span class="op">=</span> nonNullDF.select(<span class="st">"firstName"</span>, <span class="st">"lastName"</span>)<span class="op">\</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  .groupBy(<span class="st">"firstName"</span>)<span class="op">\</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  .agg(countDistinct(<span class="st">"lastName"</span>).alias(<span class="st">"distinct_last_names"</span>))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>display(countDistinctDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“5837cdf7-619b-4347-908e-7bdd4f296a45”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>py</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># To run SQL-like syntax in Python, use below Syntax</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>countDistinctDF_sql <span class="op">=</span> spark.sql(<span class="st">'''</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="st">  SELECT firstName, count(distinct lastName) AS distinct_last_names</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="st">  FROM databricks_df_example</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="st">  GROUP BY firstName</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>display(countDistinctDF_sql)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="explain" class="level3">
+<h3 class="anchored" data-anchor-id="explain">‘Explain’</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“849a75b3-5050-4bd7-ac95-61337a1c96b5”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>countDistinctDF.explain()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="createorreplacetempview-to-convert-dataframe-into-temp-view-so-can-query-via-sql" class="level3">
+<h3 class="anchored" data-anchor-id="createorreplacetempview-to-convert-dataframe-into-temp-view-so-can-query-via-sql">‘createOrReplaceTempView’ to convert Dataframe into Temp View so can query via SQL</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“cdd82cd5-e241-4ce9-8791-7cfb26e6f105”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># register the DataFrame as a Temp View so that we can query it using SQL</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>nonNullDF.createOrReplaceTempView(<span class="st">"databricks_df_example"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“29de14fe-d3a3-4173-8db5-d6c29cb8f8c1”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> To run <span class="im">as</span> SQL, use below syntax </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>SELECT firstName, count(distinct lastName) AS distinct_last_names</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>FROM databricks_df_example</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>GROUP BY firstName<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“1b5bf913-b771-41ef-84d8-8b45be9ee874”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

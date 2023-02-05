@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>C7084-2022 Big Data – mod-02-sparksql(read-write</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../img/C7084-pad.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/C7084-pad.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Information</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">Schedule</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#mod-02-spark-sql-readwrite-dataframestables" id="toc-mod-02-spark-sql-readwrite-dataframestables" class="nav-link active" data-scroll-target="#mod-02-spark-sql-readwrite-dataframestables">Mod 02: Spark SQL (Read/Write DataFrames/Tables)</a>
+  <ul class="collapse">
+  <li><a href="#lab-01-what-is-a-dataframe-object-with-a-schema" id="toc-lab-01-what-is-a-dataframe-object-with-a-schema" class="nav-link" data-scroll-target="#lab-01-what-is-a-dataframe-object-with-a-schema">Lab 01: What is a DataFrame? Object with a Schema</a></li>
+  <li><a href="#lab-02-create-dataframe-from-json-file" id="toc-lab-02-create-dataframe-from-json-file" class="nav-link" data-scroll-target="#lab-02-create-dataframe-from-json-file">Lab 02: Create Dataframe from JSON file</a></li>
+  <li><a href="#lab-03-read-parquet-files" id="toc-lab-03-read-parquet-files" class="nav-link" data-scroll-target="#lab-03-read-parquet-files">Lab 03: Read Parquet files</a></li>
+  <li><a href="#lab-04a-spark.read.csv-with-structtype-libraray-and-format-and-schema-arguments" id="toc-lab-04a-spark.read.csv-with-structtype-libraray-and-format-and-schema-arguments" class="nav-link" data-scroll-target="#lab-04a-spark.read.csv-with-structtype-libraray-and-format-and-schema-arguments">Lab 04a: spark.read.csv with StructType Libraray and format and schema arguments</a></li>
+  <li><a href="#lab-04b-even-easier-than-structtype-just-code-schema-like-below" id="toc-lab-04b-even-easier-than-structtype-just-code-schema-like-below" class="nav-link" data-scroll-target="#lab-04b-even-easier-than-structtype-just-code-schema-like-below">Lab 04b: Even easier than StructType, just code Schema like below</a></li>
+  <li><a href="#lab-05-using-postgresql-database" id="toc-lab-05-using-postgresql-database" class="nav-link" data-scroll-target="#lab-05-using-postgresql-database">Lab 05: Using PostgreSQL database</a></li>
+  <li><a href="#lab-06-write-dataframe-to-files" id="toc-lab-06-write-dataframe-to-files" class="nav-link" data-scroll-target="#lab-06-write-dataframe-to-files">Lab 06: Write DataFrame to Files</a></li>
+  <li><a href="#lab-07-write-as-json-orc-and-parquet" id="toc-lab-07-write-as-json-orc-and-parquet" class="nav-link" data-scroll-target="#lab-07-write-as-json-orc-and-parquet">Lab 07: Write as JSON, ORC and Parquet</a></li>
+  <li><a href="#lab-08-show-tables-displays-sql-tables-and-tempviews" id="toc-lab-08-show-tables-displays-sql-tables-and-tempviews" class="nav-link" data-scroll-target="#lab-08-show-tables-displays-sql-tables-and-tempviews">Lab 08: SHOW TABLES displays SQL Tables and TempViews</a></li>
+  <li><a href="#lab-09-create-table-using-and-options" id="toc-lab-09-create-table-using-and-options" class="nav-link" data-scroll-target="#lab-09-create-table-using-and-options">Lab 09: Create Table: USING and OPTIONS</a></li>
+  <li><a href="#lab-10-follow-along-with-instructor-as-view-table-details-via-data-tab-in-ui" id="toc-lab-10-follow-along-with-instructor-as-view-table-details-via-data-tab-in-ui" class="nav-link" data-scroll-target="#lab-10-follow-along-with-instructor-as-view-table-details-via-data-tab-in-ui">Lab 10: Follow along with Instructor as View Table details via ‘Data’ tab in UI</a></li>
+  <li><a href="#lab-11-create-table-without-header-info-by-creating-column-namesdata-types-manually" id="toc-lab-11-create-table-without-header-info-by-creating-column-namesdata-types-manually" class="nav-link" data-scroll-target="#lab-11-create-table-without-header-info-by-creating-column-namesdata-types-manually">Lab 11: Create Table without Header info by creating Column names/data types manually</a></li>
+  <li><a href="#lab-12-create-table-partition-by" id="toc-lab-12-create-table-partition-by" class="nav-link" data-scroll-target="#lab-12-create-table-partition-by">Lab 12: Create Table: PARTITION BY</a></li>
+  <li><a href="#lab-13-create-bucket-table-clustered-by-sorted-by-into-num_buckets" id="toc-lab-13-create-bucket-table-clustered-by-sorted-by-into-num_buckets" class="nav-link" data-scroll-target="#lab-13-create-bucket-table-clustered-by-sorted-by-into-num_buckets">Lab 13: CREATE BUCKET TABLE: Clustered By Sorted By INTO Num_Buckets</a></li>
+  <li><a href="#lab-14-create-table-tblproperties" id="toc-lab-14-create-table-tblproperties" class="nav-link" data-scroll-target="#lab-14-create-table-tblproperties">Lab 14: CREATE TABLE: TBLPROPERTIES</a></li>
+  <li><a href="#creates-key-values-pairs-that-can-be-viewed-via-show-tblproperties-query" id="toc-creates-key-values-pairs-that-can-be-viewed-via-show-tblproperties-query" class="nav-link" data-scroll-target="#creates-key-values-pairs-that-can-be-viewed-via-show-tblproperties-query">Creates Key-Values pairs that can be viewed via ‘SHOW TBLPROPERTIES’ query</a></li>
+  <li><a href="#lab-15-creating-tempviews-via-createorreplacetempview" id="toc-lab-15-creating-tempviews-via-createorreplacetempview" class="nav-link" data-scroll-target="#lab-15-creating-tempviews-via-createorreplacetempview">Lab 15: Creating TempViews via ‘CreateOrReplaceTempView’</a></li>
+  <li><a href="#lab-15e-delete-cluster-add-cluster-back-and-repeat-cmd-60." id="toc-lab-15e-delete-cluster-add-cluster-back-and-repeat-cmd-60." class="nav-link" data-scroll-target="#lab-15e-delete-cluster-add-cluster-back-and-repeat-cmd-60.">Lab 15e: Delete Cluster, Add Cluster back and repeat Cmd 60.</a></li>
+  <li><a href="#confirm-dept_view-is-no-longer-there" id="toc-confirm-dept_view-is-no-longer-there" class="nav-link" data-scroll-target="#confirm-dept_view-is-no-longer-there">Confirm ‘dept_view’ is no longer there</a></li>
+  <li><a href="#lab-16-global-temporary-tables" id="toc-lab-16-global-temporary-tables" class="nav-link" data-scroll-target="#lab-16-global-temporary-tables">Lab 16: Global Temporary Tables</a></li>
+  </ul></li>
+  <li><a href="#end-of-module-02---sparksql-readwrite-dataframestables" id="toc-end-of-module-02---sparksql-readwrite-dataframestables" class="nav-link" data-scroll-target="#end-of-module-02---sparksql-readwrite-dataframestables">End of Module 02 - SparkSQL (Read/Write DataFrames/Tables)</a>
+  <ul class="collapse">
+  <li><a href="#ignore-past-here" id="toc-ignore-past-here" class="nav-link" data-scroll-target="#ignore-past-here">Ignore past here</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="mod-02-spark-sql-readwrite-dataframestables" class="level2">
+<h2 class="anchored" data-anchor-id="mod-02-spark-sql-readwrite-dataframestables">Mod 02: Spark SQL (Read/Write DataFrames/Tables)</h2>
+<section id="lab-01-what-is-a-dataframe-object-with-a-schema" class="level3">
+<h3 class="anchored" data-anchor-id="lab-01-what-is-a-dataframe-object-with-a-schema">Lab 01: What is a DataFrame? Object with a Schema</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“e751f883-73fd-4128-99bf-0e1422b7499f”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Place cursor after last '.' and click TAB key to see which file types are supported</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>spark.read.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“1f044335-5eb7-4b93-bc6d-d50b587cbf3c”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Lab 01a: Using 'spark.read' to create a DataFrame using CSV file format</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> spark.read.load(<span class="st">"dbfs:/FileStore/tables/LifeExp_headers.csv"</span>, <span class="bu">format</span><span class="op">=</span><span class="st">"csv"</span>, header<span class="op">=</span> <span class="va">True</span>, inferSchema<span class="op">=</span> <span class="va">True</span> )</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>display(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“6f87251c-500c-41f8-b143-c7e9e44aded9”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 01b: Alternative code</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> spark.read.option(<span class="st">"header"</span>, <span class="va">True</span>).option(<span class="st">"inferSchema"</span>, <span class="va">True</span>).<span class="bu">format</span>(<span class="st">"csv"</span>).load(<span class="st">"dbfs:/FileStore/tables/LifeExp_headers.csv"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>display(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“2e6c97d8-2f16-4814-962f-d0fe42671771”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Lab 01c: Columns Implicit via hard-coded default column name = '_cX'</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#           (where X is Integer starting at 0 and incrementing by 1)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> spark.read.load(<span class="st">"dbfs:/FileStore/tables/LifeExp.csv"</span>, <span class="bu">format</span><span class="op">=</span><span class="st">"csv"</span>, header<span class="op">=</span><span class="st">"False"</span>, inferSchema<span class="op">=</span><span class="st">"True"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>display(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-02-create-dataframe-from-json-file" class="level3">
+<h3 class="anchored" data-anchor-id="lab-02-create-dataframe-from-json-file">Lab 02: Create Dataframe from JSON file</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“70720767-1f43-49ae-9917-2afe83df4635”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 02a: Using 'spark.read' function, load JSON file, then display</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"json"</span>).option(<span class="st">"inferSchema"</span>, <span class="va">True</span>).load(<span class="st">"dbfs:/FileStore/tables/names1.json"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>display(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“dfe14d44-7482-4bda-bfd6-94560232bec3”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 02b: View schema</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df1.printSchema()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“9fa77b58-0adb-4613-87a3-a6d604fbb184”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 02c: Query Dataframe using 'select' with 'display'</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Below 2 equivalent answer set</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>display(df1.select(<span class="st">"name"</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>display(df1.select(df1.name))</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>display(df1.select(df1[<span class="st">"name"</span>], df1[<span class="st">"age"</span>]))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>display(df1[df1.age<span class="op">&lt;</span><span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-03-read-parquet-files" class="level3">
+<h3 class="anchored" data-anchor-id="lab-03-read-parquet-files">Lab 03: Read Parquet files</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“0a8a33cb-7440-4950-9137-bf7311714f17”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Parquet files and display</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Parquet file format has Schema (Column names and Data types built-in the Metadata)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>empDF <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/emp_snappy.parquet/"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>deptDF <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/dept_snappy.parquet/"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>display(empDF)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>display(deptDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-04a-spark.read.csv-with-structtype-libraray-and-format-and-schema-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="lab-04a-spark.read.csv-with-structtype-libraray-and-format-and-schema-arguments">Lab 04a: spark.read.csv with StructType Libraray and format and schema arguments</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“d490ef52-8943-4c1f-aca1-e16a607d9581”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Lab 04a: How to manually define Schema for your CSV file</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Import library so can create Schema</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.types <span class="im">import</span> StructType, StructField, IntegerType, StringType, FloatType</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Create schema to be used in creation of DataFrame</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>lifeSchema <span class="op">=</span> StructType([StructField(<span class="st">'Country'</span>,StringType(), <span class="va">True</span>), <span class="op">\</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                         StructField(<span class="st">'LifeExp'</span>, FloatType(), <span class="va">True</span>), StructField(<span class="st">'Region'</span>, StringType(), <span class="va">True</span>) ])</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> spark.read.load(<span class="st">"dbfs:/FileStore/tables/LifeExp.csv"</span>, <span class="bu">format</span><span class="op">=</span><span class="st">"csv"</span>, schema<span class="op">=</span>lifeSchema)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>display(df1)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>df1.printSchema()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-04b-even-easier-than-structtype-just-code-schema-like-below" class="level3">
+<h3 class="anchored" data-anchor-id="lab-04b-even-easier-than-structtype-just-code-schema-like-below">Lab 04b: Even easier than StructType, just code Schema like below</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“e098e0d3-ddf3-432e-a338-6e07bc8af34d”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With Spark version 3, don't even have to mess around with 'StructType' anymore!!  Just do it like below</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>DDLSchema <span class="op">=</span> <span class="st">"Country string, LifeExp float, Region string"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"csv"</span>).load(<span class="st">"dbfs:/FileStore/tables/LifeExp.csv"</span>, schema<span class="op">=</span>DDLSchema)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>display(df1)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df1.printSchema()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-05-using-postgresql-database" class="level3">
+<h3 class="anchored" data-anchor-id="lab-05-using-postgresql-database">Lab 05: Using PostgreSQL database</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“b23f66df-57be-4f8e-ae19-774e581e622d”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Here<span class="st">'s JDBC driver and credentials to log into PostgreSQL</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="er">import org.apache.spark.sql.functions._</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="er">// Configure this app to connect to a PostgreSQL database</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="er">Class.forName("org.postgresql.Driver")</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="er">val connectionProperties = new java.util.Properties()</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="er">connectionProperties.put("user", "readonly")</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="er">connectionProperties.put("password", "readonly")</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="er">val tableName = "training.people_1m"</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="er">val jdbcUrl = "jdbc:postgresql://server1.databricks.training:5432/training"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“7118c38b-d05f-4bca-a814-25dec24133d0”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Here we query PostgreSQL table </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>sc.setJobDescription(<span class="st">"Step C: With Predicate"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>val df <span class="op">=</span> spark.read</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  .jdbc(url<span class="op">=</span>jdbcUrl, table<span class="op">=</span>tableName, properties<span class="op">=</span>connectionProperties) <span class="op">//</span> Open a JDBC <span class="ex">connect</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">filter</span>($<span class="st">"id"</span> <span class="op">&gt;</span> <span class="dv">343517</span>)                                             </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>display(df) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-06-write-dataframe-to-files" class="level3">
+<h3 class="anchored" data-anchor-id="lab-06-write-dataframe-to-files">Lab 06: Write DataFrame to Files</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“8dcc2536-5a5f-407e-aa58-226468ff4f14”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 06a: Write as Delta file</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>empDF <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/emp_snappy.parquet/"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>empDF.write.<span class="bu">format</span>(<span class="st">"delta"</span>).mode(<span class="st">"append"</span>).save(<span class="st">"/tmp/delta/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“68673e4e-27b9-433e-8bb3-666b71a3bcf3”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the files</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"tmp/delta/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“d9bd4a13-d3bd-452f-9c9a-a9f403dd2609”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 06b: Save as an SQL Table</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Can view table via the 'Data' menu</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># empDF.write.format("delta").mode("append").saveAsTable("emp_table")</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Note this lab will fail if you run again.  To fix, uncomment below and then run.  Then put comment back</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#spark.sql("DROP TABLE IF EXISTS emp_table")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-07-write-as-json-orc-and-parquet" class="level3">
+<h3 class="anchored" data-anchor-id="lab-07-write-as-json-orc-and-parquet">Lab 07: Write as JSON, ORC and Parquet</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“b03bb876-0a1a-493b-a4f6-402db9c0a46a”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write empDF in other File formats</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>empDF.select(<span class="st">"emp"</span>, <span class="st">"mgr"</span>, <span class="st">"dept"</span>).write.<span class="bu">format</span>(<span class="st">"json"</span>).mode(<span class="st">"overwrite"</span>).save(<span class="st">"tmp/JSON/"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>empDF.select(<span class="st">"emp"</span>, <span class="st">"mgr"</span>, <span class="st">"dept"</span>).write.<span class="bu">format</span>(<span class="st">"orc"</span>).mode(<span class="st">"overwrite"</span>).save(<span class="st">"tmp/orc/"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>empDF.select(<span class="st">"emp"</span>, <span class="st">"mgr"</span>, <span class="st">"dept"</span>).write.<span class="bu">format</span>(<span class="st">"parquet"</span>).mode(<span class="st">"overwrite"</span>).save(<span class="st">"tmp/parquet/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“892d5704-a4f8-4d2b-8578-1b0e4c7e49b6”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Which one has least disk space?</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"tmp/JSON/"</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"tmp/orc/"</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"tmp/parquet/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-08-show-tables-displays-sql-tables-and-tempviews" class="level3">
+<h3 class="anchored" data-anchor-id="lab-08-show-tables-displays-sql-tables-and-tempviews">Lab 08: SHOW TABLES displays SQL Tables and TempViews</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“bffd0895-8a14-49fd-bd0d-db5614676853”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Here<span class="st">'s the table we created in Cmd Cell 23</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="er">-- 'isTemporary' = True earmarks any TempViews you may have created via 'CreateOrReplaceTempView' statement</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="er">show tables;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“58dd4d9f-a3be-49ae-b967-dff2c3e1d22b”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative code: If wish to run in SQL-like code in Python, just preface with 'spark.sql'</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>display(spark.sql(<span class="st">"show tables"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-09-create-table-using-and-options" class="level3">
+<h3 class="anchored" data-anchor-id="lab-09-create-table-using-and-options">Lab 09: Create Table: USING and OPTIONS</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“74c57ce1-2593-40d9-bbc6-d98c7696941c”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">12</span><span class="er">a</span>: DROP, then CREATE TABLE</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Note <span class="cf">if</span> PATH points to files, Table <span class="kw">is</span> instantly populated</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>DROP TABLE IF EXISTS mpg<span class="op">;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>CREATE TABLE mpg</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>USING csv</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>OPTIONS (path <span class="st">"/databricks-datasets/Rdatasets/data-001/csv/ggplot2/mpg.csv"</span>, header <span class="st">"true"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“f0acb921-feab-4150-86a3-2feafdc90670”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Query Table</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>SELECT <span class="op">*</span> FROM mpg<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-10-follow-along-with-instructor-as-view-table-details-via-data-tab-in-ui" class="level3">
+<h3 class="anchored" data-anchor-id="lab-10-follow-along-with-instructor-as-view-table-details-via-data-tab-in-ui">Lab 10: Follow along with Instructor as View Table details via ‘Data’ tab in UI</h3>
+</section>
+<section id="lab-11-create-table-without-header-info-by-creating-column-namesdata-types-manually" class="level3">
+<h3 class="anchored" data-anchor-id="lab-11-create-table-without-header-info-by-creating-column-namesdata-types-manually">Lab 11: Create Table without Header info by creating Column names/data types manually</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“6290827e-be42-4e8f-a30f-1da4666e1437”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">11</span><span class="er">a</span>: Create Table (Here I<span class="st">'m using '</span>LOCATION<span class="st">' keyword instead of '</span>PATH<span class="st">' keyword)</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="er">DROP TABLE IF EXISTS dept;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="er">CREATE TABLE dept (dept_num INT, dept_name STRING, budget INT, mgr INT)</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="er">USING csv</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="er">LOCATION "dbfs:/FileStore/tables/dept.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“64ca2fb1-97e5-4bad-a154-a0fad26d0c72”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">11</span><span class="er">b</span>: View Table contents</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>SELECT <span class="op">*</span> FROM dept<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“f819800a-67fe-4635-97d6-1079089b2546”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 11c: Create DataFrame from Hive Table using 'spark.table'</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> spark.table(<span class="st">"dept"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>display(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-12-create-table-partition-by" class="level3">
+<h3 class="anchored" data-anchor-id="lab-12-create-table-partition-by">Lab 12: Create Table: PARTITION BY</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“4e072755-a135-4bae-a9a5-8052ea665e4b”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment this and run if wish to run next Cell again</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dbutils.fs.rm('/user/hive/warehouse/cust_part', True)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“abc3bcf3-8f4f-499a-a486-886b779a756b”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">12</span><span class="er">a</span>: </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>DROP TABLE IF EXISTS cust_part<span class="op">;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>CREATE TABLE cust_part (<span class="bu">id</span> INT, name STRING) </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>USING DELTA</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>PARTITIONED BY (state STRING, city STRING)<span class="op">;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“1d785c47-e592-4a92-92c8-5d5401485974”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">12</span><span class="er">b</span>: INSERT data into Table</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>INSERT INTO cust_part PARTITION (state <span class="op">=</span> <span class="st">'CA'</span>, city <span class="op">=</span> <span class="st">'Fremont'</span>) VALUES (<span class="dv">100</span>, <span class="st">'Al'</span>)<span class="op">;</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>INSERT INTO cust_part PARTITION (state <span class="op">=</span> <span class="st">'CA'</span>, city <span class="op">=</span> <span class="st">'San Jose'</span>) VALUES (<span class="dv">200</span>, <span class="st">'Bo'</span>)<span class="op">;</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>INSERT INTO cust_part PARTITION (state <span class="op">=</span> <span class="st">'AZ'</span>, city <span class="op">=</span> <span class="st">'Peoria'</span>) VALUES (<span class="dv">300</span>, <span class="st">'Cy'</span>)<span class="op">;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“b341c28c-de09-4e9b-ad46-19ee8f7d8d16”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">12</span><span class="er">c</span>: View Table contents</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>SELECT <span class="op">*</span> FROM cust_part<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“df21539b-b75e-47df-9f85-4c457aa19693”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">12</span><span class="er">d</span>: Details about the Table</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>DESCRIBE EXTENDED cust_part<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“3e5e9f1c-8822-44ef-9df7-60333e754e07”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">12</span><span class="er">e</span>: Confirm only reading <span class="dv">1</span> Partition (CA). Look <span class="cf">for</span> <span class="st">'PartitionFilters'</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>EXPLAIN FORMATTED SELECT <span class="op">*</span> FROM cust_part WHERE state <span class="op">=</span> <span class="st">'CA'</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“a16045c7-6942-4774-b4b4-bae486b97288”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 12f: Confirm have 2 Directories under dbfs:/user/hive/warehouse/cust_part</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"dbfs:/user/hive/warehouse/cust_part/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“c184bf4e-4c3f-4e2c-868c-3f4a85a0fe48”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 12g: Drill down to state=CA partition and notice 2 CITY partitions under it</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"dbfs:/user/hive/warehouse/cust_part/state=CA"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“7b9c1043-531e-4b53-b54d-57e27488a6db”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drill down to 'city=Fremont' Partition to view actual File(s)</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 12h:</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"dbfs:/user/hive/warehouse/cust_part/state=CA/city=Fremont/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-13-create-bucket-table-clustered-by-sorted-by-into-num_buckets" class="level3">
+<h3 class="anchored" data-anchor-id="lab-13-create-bucket-table-clustered-by-sorted-by-into-num_buckets">Lab 13: CREATE BUCKET TABLE: Clustered By Sorted By INTO Num_Buckets</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“88dfa541-7fe1-4dae-9d78-4eea6efce60d”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment this and run if wish to run next Cell again</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dbutils.fs.rm('/user/hive/warehouse/bucket_table', True)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“70510633-9b68-4b3b-aabc-5789e34a343e”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">13</span><span class="er">a</span>: Create <span class="dv">25</span> buckets (files) <span class="kw">and</span> has <span class="st">'State'</span> values to one of these Buckets</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="op">--</span>          Note it <span class="kw">is</span> possible to get Skewed files this way</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>DROP TABLE IF EXISTS bucket_table<span class="op">;</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>CREATE TABLE bucket_table (state STRING, population INT, yr INT)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        USING CSV</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        COMMENT <span class="st">'A bucketed sorted user table'</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>        CLUSTERED BY (state) SORTED BY (state) INTO <span class="dv">25</span> BUCKETS<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“5a6db9f6-2b6d-4647-af5c-9d2fccd543ab”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">13</span><span class="er">b</span>: INSERT</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>INSERT OVERWRITE bucket_table VALUES</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Alabama"</span>,<span class="dv">4875120</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Alaska"</span>,<span class="dv">739786</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Arizona"</span>,<span class="dv">7048876</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Arkansas"</span>,<span class="dv">3002997</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>(<span class="st">"California"</span>,<span class="dv">39399349</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Colorado"</span>,<span class="dv">5615902</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Connecticut"</span>,<span class="dv">3573880</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Delaware"</span>,<span class="dv">957078</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>(<span class="st">"DistrictofColumbia"</span>,<span class="dv">695691</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Florida"</span>,<span class="dv">20976812</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Georgia"</span>,<span class="dv">10413055</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Hawaii"</span>,<span class="dv">1424203</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Idaho"</span>,<span class="dv">1718904</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Illinois"</span>,<span class="dv">12786196</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Indiana"</span>,<span class="dv">6660082</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Iowa"</span>,<span class="dv">3143637</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Kansas"</span>,<span class="dv">2910689</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Kentucky"</span>,<span class="dv">4453874</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Louisiana"</span>,<span class="dv">4670818</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Maine"</span>,<span class="dv">1335063</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Maryland"</span>,<span class="dv">6024891</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Massachusetts"</span>,<span class="dv">6863246</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Michigan"</span>,<span class="dv">9976447</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Minnesota"</span>,<span class="dv">5568155</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Mississippi"</span>,<span class="dv">2989663</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Missouri"</span>,<span class="dv">6108612</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Montana"</span>,<span class="dv">1053090</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Nebraska"</span>,<span class="dv">1917575</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Nevada"</span>,<span class="dv">2972405</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>(<span class="st">"New Hampshire"</span>,<span class="dv">1349767</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>(<span class="st">"New Jersey"</span>,<span class="dv">8888543</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>(<span class="st">"New Mexico"</span>,<span class="dv">2093395</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a>(<span class="st">"New York"</span>,<span class="dv">19590719</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>(<span class="st">"North Carolina"</span>,<span class="dv">10270800</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>(<span class="st">"North Dakota"</span>,<span class="dv">755176</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Ohio"</span>,<span class="dv">11664129</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Oklahoma"</span>,<span class="dv">3932640</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Oregon"</span>,<span class="dv">4146592</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Pennsylvania"</span>,<span class="dv">12790447</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Rhode Island"</span>,<span class="dv">1056486</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a>(<span class="st">"South Carolina"</span>,<span class="dv">5021219</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a>(<span class="st">"South Dakota"</span>,<span class="dv">873286</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Tennessee"</span>,<span class="dv">6708794</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Texas"</span>,<span class="dv">28322717</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Utah"</span>,<span class="dv">3103118</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Vermont"</span>,<span class="dv">624525</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Virginia"</span>,<span class="dv">8465207</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-52"><a href="#cb36-52" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Washington"</span>,<span class="dv">7425432</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a>(<span class="st">"West Virginia"</span>,<span class="dv">1817048</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-54"><a href="#cb36-54" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Wisconsin"</span>,<span class="dv">5792051</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-55"><a href="#cb36-55" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Wyoming"</span>,<span class="dv">578934</span>,<span class="dv">2017</span>),</span>
+<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Alabama"</span>,<span class="dv">4887871</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Alaska"</span>,<span class="dv">737438</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-58"><a href="#cb36-58" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Arizona"</span>,<span class="dv">7171646</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-59"><a href="#cb36-59" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Arkansas"</span>,<span class="dv">3013825</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-60"><a href="#cb36-60" aria-hidden="true" tabindex="-1"></a>(<span class="st">"California"</span>,<span class="dv">39557045</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-61"><a href="#cb36-61" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Colorado"</span>,<span class="dv">5695564</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-62"><a href="#cb36-62" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Connecticut"</span>,<span class="dv">3572665</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-63"><a href="#cb36-63" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Delaware"</span>,<span class="dv">967171</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-64"><a href="#cb36-64" aria-hidden="true" tabindex="-1"></a>(<span class="st">"DistrictofColumbia"</span>,<span class="dv">702455</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-65"><a href="#cb36-65" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Florida"</span>,<span class="dv">21299325</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-66"><a href="#cb36-66" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Georgia"</span>,<span class="dv">10519475</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-67"><a href="#cb36-67" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Hawaii"</span>,<span class="dv">1420491</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-68"><a href="#cb36-68" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Idaho"</span>,<span class="dv">1754208</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-69"><a href="#cb36-69" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Illinois"</span>,<span class="dv">12741080</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-70"><a href="#cb36-70" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Indiana"</span>,<span class="dv">6691878</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-71"><a href="#cb36-71" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Iowa"</span>,<span class="dv">3156145</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-72"><a href="#cb36-72" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Kansas"</span>,<span class="dv">2911505</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-73"><a href="#cb36-73" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Kentucky"</span>,<span class="dv">4468402</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-74"><a href="#cb36-74" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Louisiana"</span>,<span class="dv">4659978</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-75"><a href="#cb36-75" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Maine"</span>,<span class="dv">1338404</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-76"><a href="#cb36-76" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Maryland"</span>,<span class="dv">6042718</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-77"><a href="#cb36-77" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Massachusetts"</span>,<span class="dv">6902149</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-78"><a href="#cb36-78" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Michigan"</span>,<span class="dv">9995915</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-79"><a href="#cb36-79" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Minnesota"</span>,<span class="dv">5611179</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-80"><a href="#cb36-80" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Mississippi"</span>,<span class="dv">2986530</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-81"><a href="#cb36-81" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Missouri"</span>,<span class="dv">6126452</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-82"><a href="#cb36-82" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Montana"</span>,<span class="dv">1062305</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-83"><a href="#cb36-83" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Nebraska"</span>,<span class="dv">1929268</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-84"><a href="#cb36-84" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Nevada"</span>,<span class="dv">3034392</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-85"><a href="#cb36-85" aria-hidden="true" tabindex="-1"></a>(<span class="st">"New Hampshire"</span>,<span class="dv">1356458</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-86"><a href="#cb36-86" aria-hidden="true" tabindex="-1"></a>(<span class="st">"New Jersey"</span>,<span class="dv">8908520</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-87"><a href="#cb36-87" aria-hidden="true" tabindex="-1"></a>(<span class="st">"New Mexico"</span>,<span class="dv">2095428</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-88"><a href="#cb36-88" aria-hidden="true" tabindex="-1"></a>(<span class="st">"New York"</span>,<span class="dv">19542209</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-89"><a href="#cb36-89" aria-hidden="true" tabindex="-1"></a>(<span class="st">"North Carolina"</span>,<span class="dv">10383620</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-90"><a href="#cb36-90" aria-hidden="true" tabindex="-1"></a>(<span class="st">"North Dakota"</span>,<span class="dv">760077</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-91"><a href="#cb36-91" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Ohio"</span>,<span class="dv">11689442</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-92"><a href="#cb36-92" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Oklahoma"</span>,<span class="dv">3943079</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-93"><a href="#cb36-93" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Oregon"</span>,<span class="dv">4190713</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-94"><a href="#cb36-94" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Pennsylvania"</span>,<span class="dv">12807060</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-95"><a href="#cb36-95" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Rhode Island"</span>,<span class="dv">1057315</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-96"><a href="#cb36-96" aria-hidden="true" tabindex="-1"></a>(<span class="st">"South Carolina"</span>,<span class="dv">5084127</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-97"><a href="#cb36-97" aria-hidden="true" tabindex="-1"></a>(<span class="st">"South Dakota"</span>,<span class="dv">882235</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-98"><a href="#cb36-98" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Tennessee"</span>,<span class="dv">6770010</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-99"><a href="#cb36-99" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Texas"</span>,<span class="dv">28701845</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-100"><a href="#cb36-100" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Utah"</span>,<span class="dv">3161105</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-101"><a href="#cb36-101" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Vermont"</span>,<span class="dv">626299</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-102"><a href="#cb36-102" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Virginia"</span>,<span class="dv">8517685</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-103"><a href="#cb36-103" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Washington"</span>,<span class="dv">7535591</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-104"><a href="#cb36-104" aria-hidden="true" tabindex="-1"></a>(<span class="st">"West Virginia"</span>,<span class="dv">1805832</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-105"><a href="#cb36-105" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Wisconsin"</span>,<span class="dv">5813568</span>,<span class="dv">2018</span>),</span>
+<span id="cb36-106"><a href="#cb36-106" aria-hidden="true" tabindex="-1"></a>(<span class="st">"Wyoming"</span>,<span class="dv">577737</span>,<span class="dv">2018</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“8e2596b3-0e57-4d20-b136-15341dc0328d”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">13</span><span class="er">c</span>: Confirm only reading <span class="dv">1</span> Bucket. Look <span class="cf">for</span> Number of Buckets Selected</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>EXPLAIN FORMATTED SELECT <span class="op">*</span> FROM bucket_table WHERE state <span class="op">=</span> <span class="st">'Ohio'</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“5211c62f-fcf9-4dbf-8f0d-149a13c0459c”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">13</span><span class="er">d</span>: View DDL of Table</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>SHOW CREATE TABLE bucket_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-14-create-table-tblproperties" class="level3">
+<h3 class="anchored" data-anchor-id="lab-14-create-table-tblproperties">Lab 14: CREATE TABLE: TBLPROPERTIES</h3>
+</section>
+<section id="creates-key-values-pairs-that-can-be-viewed-via-show-tblproperties-query" class="level3">
+<h3 class="anchored" data-anchor-id="creates-key-values-pairs-that-can-be-viewed-via-show-tblproperties-query">Creates Key-Values pairs that can be viewed via ‘SHOW TBLPROPERTIES’ query</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“cce4f517-4e77-4fe6-86b0-456ecadbe2e8”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">14</span><span class="er">a</span>:</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>DROP TABLE IF EXISTS customer1<span class="op">;</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>CREATE TABLE customer1(cust_code INT, name VARCHAR(<span class="dv">100</span>), cust_addr STRING)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  TBLPROPERTIES (<span class="st">'created.by.user'</span> <span class="op">=</span> <span class="st">'Mark'</span>, <span class="st">'created.date'</span> <span class="op">=</span> <span class="st">'01-01-2021'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“fb1fb5aa-2e34-4d94-8fad-528f1d4f3b46”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">14</span><span class="er">b</span>: Comments show up <span class="kw">in</span> this command</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>SHOW TBLPROPERTIES customer1<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“e6359acb-8454-4a6d-b951-edf2d2ad96ea”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">14</span><span class="er">c</span>:  Comments show up <span class="kw">in</span> this command too</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>DESCRIBE EXTENDED customer1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-15-creating-tempviews-via-createorreplacetempview" class="level3">
+<h3 class="anchored" data-anchor-id="lab-15-creating-tempviews-via-createorreplacetempview">Lab 15: Creating TempViews via ‘CreateOrReplaceTempView’</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“258de1a0-7d3e-4d09-8276-9e523abb5e4d”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 15a: Convert DataFrame into a TempView</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>deptDF <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/dept_snappy.parquet/"</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>deptDF.createOrReplaceTempView(<span class="st">"dept_view"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“15483f54-b5b6-409b-92fe-1e6c4a781ddf”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">15</span><span class="er">b</span>: show tables. Note have both PERM <span class="kw">and</span> TEMP objects</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>show tables<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“fb225351-fbfa-4974-a0e8-fffcbf689134”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">15</span><span class="er">c</span>: Query Temp View</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>SELECT <span class="op">*</span> FROM dept_view<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“1102bcae-c3b4-43b4-af47-9fccfcc1ee6a”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Lab <span class="dv">15</span><span class="er">d</span>: Saving a TempView <span class="im">as</span> a Perm Table</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>CREATE TABLE perm_dept_table2 AS SELECT <span class="op">*</span> FROM dept_view<span class="op">;</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>SHOW TABLES<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+<section id="lab-15e-delete-cluster-add-cluster-back-and-repeat-cmd-60." class="level3">
+<h3 class="anchored" data-anchor-id="lab-15e-delete-cluster-add-cluster-back-and-repeat-cmd-60.">Lab 15e: Delete Cluster, Add Cluster back and repeat Cmd 60.</h3>
+</section>
+<section id="confirm-dept_view-is-no-longer-there" class="level3">
+<h3 class="anchored" data-anchor-id="confirm-dept_view-is-no-longer-there">Confirm ‘dept_view’ is no longer there</h3>
+</section>
+<section id="lab-16-global-temporary-tables" class="level3">
+<h3 class="anchored" data-anchor-id="lab-16-global-temporary-tables">Lab 16: Global Temporary Tables</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“d3aaec47-4bcb-46a1-a38c-280242a74fdd”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment below and run if wish to run next Cell again</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># spark.catalog.dropGlobalTempView("people")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“89b7a50a-3d24-46e1-846b-a535143e4462”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 16a:  Run Global Temp View across 2 sessions: They both work</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note if need to drop a Global Temp View, use the code in above Cell (commented out since don't need it for lab)</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># spark.catalog.dropGlobalTempView("people")</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> spark.read.json(<span class="st">"dbfs:/FileStore/tables/names1.json"</span>) </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>df.createGlobalTempView(<span class="st">"people"</span>) </span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Global temporary view is tied to a system preserved database `global_temp`</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>spark.sql(<span class="st">"SELECT * FROM global_temp.people"</span>).show() </span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Global temporary view successful in another Session</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>spark.newSession().sql(<span class="st">"SELECT * FROM global_temp.people"</span>).show() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“5e15425a-82b0-4a41-bea8-3688b74c7725”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 16b:  Run Temp View across 2 sessions: 2nd Session fails on Purpose since it's a Temp View.</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co">#           It ran in previous lab because it was a Global View</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> spark.read.json(<span class="st">"dbfs:/FileStore/tables/names1.json"</span>) </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>df1.createOrReplaceTempView(<span class="st">"people_temp_view"</span>)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Now Convert TempView to a DataFrame using following syntax</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>spark.sql(<span class="st">"SELECT * from people_temp_view"</span>).show()</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Temporary views ARE NOT cross-session. Query Fails intentionally</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>spark.newSession().sql(<span class="st">"SELECT * FROM people_temp_view"</span>).show() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+</section>
+</section>
+<section id="end-of-module-02---sparksql-readwrite-dataframestables" class="level1">
+<h1>End of Module 02 - SparkSQL (Read/Write DataFrames/Tables)</h1>
+<section id="ignore-past-here" class="level2">
+<h2 class="anchored" data-anchor-id="ignore-past-here">Ignore past here</h2>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

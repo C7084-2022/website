@@ -1,0 +1,81 @@
+---
+title: "Schedule"
+---
+
+## Calendar of resources
+
+The material in this module is designed to be experienced in an intensive one week format followed by an assessment meant to showcase data science skills. For enrolled students, the work will be supported with several live sessions during the main week of delivery.
+
+[Outline of material](files/databricks-outline.docs)
+
+<br>
+
+# **SQL mini course (freecodecamp)**
+
+## Mon
+
+D/L & install: [MySQL Community Server](https://dev.mysql.com/downloads/mysql/) :: [PopSQL](https://popsql.com/)
+
+⌨️ ([0:00](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=0s)) Introduction ⌨️ ([2:36](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=156s)) What is a Database? ⌨️ ([23:10](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=1390s)) Tables & Keys ⌨️ ([43:31](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=2611s)) SQL Basics ⌨️ ([52:26](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=3146s)) MySQL Windows Installation ⌨️ ([1:01:59](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=3719s)) MySQL Mac Installation ⌨️ ([1:15:49](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=4549s)) Creating Tables ⌨️ ([1:31:05](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=5465s)) Inserting Data ⌨️ ([1:38:17](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=5897s)) Constraints ⌨️ ([1:48:11](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=6491s)) Update & Delete ⌨️ ([1:56:11](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=6971s)) Basic Queries ⌨️ ([2:08:37](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=7717s)) Company Database Intro ⌨️ ([2:14:05](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=8045s)) Creating Company Database ⌨️ ([2:30:27](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=9027s) ) More Basic Queries ⌨️ ([2:26:24](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=8784s)) Functions ⌨️ ([2:45:13](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=9913s)) Wildcards ⌨️ ([2:53:53](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=10433s)) Union ⌨️ ([3:01:36](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=10896s)) Joins ⌨️ ([3:11:49](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=11509s)) Nested Queries ⌨️ ([3:21:52](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=12112s)) On Delete ⌨️ ([3:30:05](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=12605s)) Triggers ⌨️ ([3:42:12](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=13332s)) ER Diagrams Intro ⌨️ ([3:55:53](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=14153s)) Designing an ER Diagram ⌨️ ([4:08:34](https://www.youtube.com/watch?v=HXV3zeQKqGY&t=14914s)) Converting ER Diagrams to Schemas
+
+<br>
+
+# **Databricks mini course**
+
+## Tues
+
+[Data bricks account and fast start](files/00-databricks-community-account.docx) :: [data files zip](https://www.dropbox.com/s/4raa80mv99aizpy/data.zip?dl=1) :: [lab notebooks zip](notebook-labs/databricks-notebooks.zip) :: [hacktivity notebooks zip](notebooks-hacktivity/hacktivities.zip)
+
+(Tues-Fri suggested 'module' schedule)
+
+Mod 00 - intro and setup :: [slides](http://localhost:5712/slides/DB-Spark-Mod00-Intro-and-Setup.pptx)
+
+Mod 01 -- Spark Architecture :: [slides](http://localhost:5712/slides/DB-Spark-Mod01-Spark-Architecture!.pptx)
+
+Mod 02 -- SparkSQL (Read/Write DataFrames/Tables) :: [slides](http://localhost:5712/slides/DB-Spark-Mod02-SparkSQL(Read-Write)!.pptx)
+
+Hacktivity 00 (Dates) / Hacktivity 01 (Air)
+
+## Wed
+
+Mod 03 -- SparkSQL (Transform) :: [slides](http://localhost:5712/slides/DB-Spark-Mod03-SparkSQL-Transformations!%20(Student%20only).pptx)
+
+Mod 04 -- Complex Data Types :: [slides](http://localhost:5712/slides/DB-Spark-Mod04-Complex%20(Student%20Only)!.pptx)
+
+Mod 05 -- JSON (Optional) :: [slides](http://localhost:5712/slides/DB-Spark-Mod05-JSON!.pptx)
+
+Hacktivity 02 (Fly)
+
+## Thurs
+
+Mod 06 -- Streaming :: [slides](http://localhost:5712/slides/DB-Spark-Mod06-Streaming!.pptx)
+
+Mod 07 -- Architecture-Spark UI :: [slides](http://localhost:5712/slides/DB-Spark-Mod07-Job-Arch-SparkUI!.pptx)
+
+Mod 08 -- Catalog-Catalyst-Tungsten :: [slides](http://localhost:5712/slides/DB-Spark-Mod08-Catalyst-Tungsten!.pptx)
+
+Mod 09 -- Adaptive Query Execution :: [slides](http://localhost:5712/slides/DB-Spark-Mod09-AQE!.pptx)
+
+## Fri
+
+Mod 10 -- Performance Tuning :: [slides](http://localhost:5712/slides/DB-Spark-Mod10-Perf-Tuning!.pptx)
+
+Hacktivity 03 (Stream) / Hacktivity 04 (Air)
+
+Mod 11 -- Machine Learning :: [slides 11-1](http://localhost:5712/slides/Mod11-1.pptx) :: [slides 11-2](http://localhost:5712/slides/Mod11-2.pptx) :: [slides 11-3](http://localhost:5712/slides/Mod11-3.pptx) :: [slides 11-4](http://localhost:5712/slides/Mod11-4.pptx)
+
+## References
+
+M. Amani et al., "Google Earth Engine Cloud Computing Platform for Remote Sensing Big Data Applications: A Comprehensive Review," in *IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing*, vol. 13, pp. 5326-5350, 2020, doi: 10.1109/JSTARS.2020.3021052.
+
+Tamiminia, H. *et al.* 'Google Earth Engine for geo-big data applications: A meta-analysis and systematic review', *ISPRS Journal of Photogrammetry and Remote Sensing*, 2020, 164, pp. 152--170. doi: 10.1016/j.isprsjprs.2020.04.001.
+
+Cravero A, Sepúlveda S. Use and Adaptations of Machine Learning in Big Data---Applications in Real Cases in Agriculture. *Electronics*. 2021; 10(5):552. https://doi.org/10.3390/electronics10050552
+
+<br><br>
+
+## Harper Adams Data Science
+
+![](img/HDS.png){fig-alt="Harper Data Science" width="125"}
+
+This module is a part of the [MSc in Data Science for Global Agriculture, Food, and Environment](https://www.harper-adams.ac.uk/courses/postgraduate/201194/data-science-for-global-agriculture-food-and-environment "MSc in Data Science") at [Harper Adams University](https://www.harper-adams.ac.uk/ "Harper Adams University"), led by [Ed Harris](https://www.harper-adams.ac.uk/general/staff/profile/201620/Edwin-Harris/ "Ed's Faculty page").

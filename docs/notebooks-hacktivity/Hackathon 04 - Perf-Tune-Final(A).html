@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>C7084-2022 Big Data – hackathon-04---perf-tune-final(a</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../img/C7084-pad.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/C7084-pad.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Information</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">Schedule</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#hackathon-04-performance-tuning" id="toc-hackathon-04-performance-tuning" class="nav-link active" data-scroll-target="#hackathon-04-performance-tuning">Hackathon 04: Performance Tuning</a></li>
+  <li><a href="#find-avg-taxi-in-flights-time-per-description-carrier-per-airline-mfg-planes" id="toc-find-avg-taxi-in-flights-time-per-description-carrier-per-airline-mfg-planes" class="nav-link" data-scroll-target="#find-avg-taxi-in-flights-time-per-description-carrier-per-airline-mfg-planes">Find Avg taxi-in (Flights) time per Description (Carrier) per Airline Mfg (Planes)</a>
+  <ul class="collapse">
+  <li><a href="#take-below-query-run-via-rdds-and-performance-tune-it-to-see-how-fast-you-can-get-it-to-run" id="toc-take-below-query-run-via-rdds-and-performance-tune-it-to-see-how-fast-you-can-get-it-to-run" class="nav-link" data-scroll-target="#take-below-query-run-via-rdds-and-performance-tune-it-to-see-how-fast-you-can-get-it-to-run">Take below query (run via RDD’s) and Performance Tune it to see how fast you can get it to run</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="hackathon-04-performance-tuning" class="level2">
+<h2 class="anchored" data-anchor-id="hackathon-04-performance-tuning">Hackathon 04: Performance Tuning</h2>
+</section>
+<section id="find-avg-taxi-in-flights-time-per-description-carrier-per-airline-mfg-planes" class="level2">
+<h2 class="anchored" data-anchor-id="find-avg-taxi-in-flights-time-per-description-carrier-per-airline-mfg-planes">Find Avg taxi-in (Flights) time per Description (Carrier) per Airline Mfg (Planes)</h2>
+<section id="take-below-query-run-via-rdds-and-performance-tune-it-to-see-how-fast-you-can-get-it-to-run" class="level3">
+<h3 class="anchored" data-anchor-id="take-below-query-run-via-rdds-and-performance-tune-it-to-see-how-fast-you-can-get-it-to-run">Take below query (run via RDD’s) and Performance Tune it to see how fast you can get it to run</h3>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“84cf013c-8c97-493a-8027-00e238f82dd8”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First confirm have 3 files. If not notify instructor and he'll Email you the files</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"dbfs:/FileStore/tables/header_flights.csv"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"dbfs:/FileStore/tables/header_carriers.csv"</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>display(dbutils.fs.ls(<span class="st">"dbfs:/FileStore/tables/header_planes.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<style scoped="">
+  .table-result-container {
+    max-height: 300px;
+    overflow: auto;
+  }
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 5px;
+  }
+  th {
+    text-align: left;
+  }
+</style><div class="table-result-container"><table class="table-result"><thead style="background-color: white"><tr><th>path</th><th>name</th><th>size</th></tr></thead><tbody><tr><td>dbfs:/FileStore/tables/header_flights.csv</td><td>header_flights.csv</td><td>136035443</td></tr></tbody></table></div>
+</div>
+<div class="cell-output cell-output-display">
+
+<style scoped="">
+  .table-result-container {
+    max-height: 300px;
+    overflow: auto;
+  }
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 5px;
+  }
+  th {
+    text-align: left;
+  }
+</style><div class="table-result-container"><table class="table-result"><thead style="background-color: white"><tr><th>path</th><th>name</th><th>size</th></tr></thead><tbody><tr><td>dbfs:/FileStore/tables/header_carriers.csv</td><td>header_carriers.csv</td><td>37794</td></tr></tbody></table></div>
+</div>
+<div class="cell-output cell-output-display">
+
+<style scoped="">
+  .table-result-container {
+    max-height: 300px;
+    overflow: auto;
+  }
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 5px;
+  }
+  th {
+    text-align: left;
+  }
+</style><div class="table-result-container"><table class="table-result"><thead style="background-color: white"><tr><th>path</th><th>name</th><th>size</th></tr></thead><tbody><tr><td>dbfs:/FileStore/tables/header_planes.csv</td><td>header_planes.csv</td><td>432996</td></tr></tbody></table></div>
+</div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“0d75db6a-00ec-445c-b6c2-9e261ff875f1”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>scala</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> First run <span class="im">as</span> RDD to get benchmark of how much time to execute the query</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>val flight1 <span class="op">=</span> sc.textFile(<span class="st">"dbfs:/FileStore/tables/header_flights.csv"</span>).<span class="bu">map</span>(line <span class="op">=&gt;</span> line.split(<span class="st">","</span>))        </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>val carrier1 <span class="op">=</span> sc.textFile(<span class="st">"dbfs:/FileStore/tables/header_carriers.csv"</span>).<span class="bu">map</span>(line <span class="op">=&gt;</span> line.split(<span class="st">","</span>))        </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>val planes1 <span class="op">=</span> sc.textFile(<span class="st">"dbfs:/FileStore/tables/header_planes.csv"</span>).<span class="bu">map</span>(line <span class="op">=&gt;</span> line.split(<span class="st">","</span>)).<span class="bu">filter</span>(line <span class="op">=&gt;</span> line.length <span class="op">==</span> <span class="dv">9</span>)               </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>val flight_header <span class="op">=</span> flight1.first()</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>val carrier_header <span class="op">=</span> carrier1.first()</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>val planes_header <span class="op">=</span> planes1.first()</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>val flight2 <span class="op">=</span> flight1.<span class="bu">filter</span>(x <span class="op">=&gt;</span> x <span class="op">!=</span> flight_header) </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>val carrier2 <span class="op">=</span> carrier1.<span class="bu">filter</span>(x <span class="op">=&gt;</span> x <span class="op">!=</span> carrier_header) </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>val planes2 <span class="op">=</span> planes1.<span class="bu">filter</span>(x <span class="op">=&gt;</span> x <span class="op">!=</span> planes_header) </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>val flightC <span class="op">=</span> flight2.keyBy(line <span class="op">=&gt;</span> line(<span class="dv">5</span>))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>val carrierC <span class="op">=</span> carrier2.keyBy(line <span class="op">=&gt;</span> line(<span class="dv">0</span>))</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>flightC.first()</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>carrierC.first()</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>val join1 <span class="op">=</span> flightC.join(carrierC)        </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>val join1P <span class="op">=</span> join1.<span class="bu">map</span>{case (a,b) <span class="op">=&gt;</span> (b._1(<span class="dv">7</span>), (a,b._1,b._2))} </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>val planesP <span class="op">=</span> planes2.keyBy(line <span class="op">=&gt;</span> line(<span class="dv">0</span>))        </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>val finalRdd <span class="op">=</span> join1P.join(planesP) </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>finalRdd.first()</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>val neededData <span class="op">=</span> finalRdd.<span class="bu">map</span>{case (a,b) <span class="op">=&gt;</span> ((b._1._3(<span class="dv">1</span>), b._2(<span class="dv">2</span>)), b._1._2(<span class="dv">10</span>).toInt)}    </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>val avgTaxiInByAir <span class="op">=</span> neededData.groupByKey().mapValues(<span class="bu">list</span> <span class="op">=&gt;</span> <span class="bu">list</span>.<span class="bu">sum</span>.toFloat<span class="op">/</span><span class="bu">list</span>.size)   </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>avgTaxiInByAir.take(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<style scoped="">
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">flight1: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[38] at map at command-4100678212116257:2
+carrier1: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[41] at map at command-4100678212116257:3
+planes1: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[45] at filter at command-4100678212116257:4
+flight_header: Array[String] = Array(month, dayofmonth, dayofweek, deptime, arrtime, uniquecarrier, flightnum, tailnum, elapsedtime, airtime, arrdelay, depdelay, origin, dest, distance, taxiin, taxiout, cancelled, cancellationcode, diverted)
+carrier_header: Array[String] = Array(Code, Description)
+planes_header: Array[String] = Array(tailnum, type, manufacturer, issue_date, model, status, aircraft_type, engine_type, year)
+flight2: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[46] at filter at command-4100678212116257:10
+carrier2: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[47] at filter at command-4100678212116257:11
+planes2: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[48] at filter at command-4100678212116257:12
+flightC: org.apache.spark.rdd.RDD[(String, Array[String])] = MapPartitionsRDD[49] at keyBy at command-4100678212116257:14
+carrierC: org.apache.spark.rdd.RDD[(String, Array[String])] = MapPartitionsRDD[50] at keyBy at command-4100678212116257:15
+join1: org.apache.spark.rdd.RDD[(String, (Array[String], Array[String]))] = MapPartitionsRDD[53] at join at command-4100678212116257:20
+join1P: org.apache.spark.rdd.RDD[(String, (String, Array[String], Array[String]))] = MapPartitionsRDD[54] at map at command-4100678212116257:21
+planesP: org.apache.spark.rdd.RDD[(String, Array[String])] = MapPartitionsRDD[55] at keyBy at command-4100678212116257:23
+finalRdd: org.apache.spark.rdd.RDD[(String, ((String, Array[String], Array[String]), Array[String]))] = MapPartitionsRDD[58] at join at command-4100678212116257:24
+neededData: org.apache.spark.rdd.RDD[((String, String), Int)] = MapPartitionsRDD[59] at map at command-4100678212116257:28
+avgTaxiByAir: org.apache.spark.rdd.RDD[((String, String), Float)] = MapPartitionsRDD[61] at mapValues at command-4100678212116257:29
+res13: Array[((String, String), Float)] = Array(((Delta Air Lines Inc.,MCDONNELL DOUGLAS CORPORATION),8.265625), ((Alaska Airlines Inc.,MCDONNELL DOUGLAS),5.9397826), ((Southwest Airlines Co.,BOMBARDIER INC),5.275789), ((Mesa Airlines Inc.,BOEING),13.430187), ((Northwest Airlines Inc.,BOEING),7.36541), ((Southwest Airlines Co.,AIRBUS),7.5576377), ((American Eagle Airlines Inc.,PAIR MIKE E),-2.0257733), ((American Airlines Inc.,EMBRAER),10.972143), ((Frontier Airlines Inc.,MCDONNELL DOUGLAS AIRCRAFT CO),6.6797595), ((JetBlue Airways,BOEING),11.374466))
+</div>
+</div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“166f8e3f-eba1-4590-a32a-53ec2c0e6c8c”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>flightsDF <span class="op">=</span> spark.read.csv(<span class="st">"dbfs:/FileStore/tables/header_flights.csv"</span>, header<span class="op">=</span><span class="va">True</span>, inferSchema<span class="op">=</span><span class="va">True</span>).repartition(<span class="dv">2</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>carriersDF <span class="op">=</span> spark.read.csv(<span class="st">"dbfs:/FileStore/tables/header_carriers.csv"</span>, header<span class="op">=</span><span class="va">True</span>, inferSchema<span class="op">=</span><span class="va">True</span>).repartition(<span class="dv">2</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>planesDF <span class="op">=</span> spark.read.csv(<span class="st">"dbfs:/FileStore/tables/header_planes.csv"</span>, header<span class="op">=</span><span class="va">True</span>, inferSchema<span class="op">=</span><span class="va">True</span>).repartition(<span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">## airportsDF = spark.read.csv("dbfs:/FileStore/tables/header_airports.csv", header=True, inferSchema=True).repartition(2)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>fDF <span class="op">=</span> flightsDF.select(<span class="st">"uniquecarrier"</span>, <span class="st">"tailnum"</span>, <span class="st">"taxiin"</span>)      </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>cDF <span class="op">=</span> carriersDF.select(<span class="st">"code"</span>, <span class="st">"description"</span>)                      </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>pDF <span class="op">=</span> planesDF.select(<span class="st">"tailnum"</span>, <span class="st">"manufacturer"</span>)                         </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>fDF.write.<span class="bu">format</span>(<span class="st">"parquet"</span>).save(<span class="st">"dbfs:/FileStore/tables/flight2"</span>, mode <span class="op">=</span> <span class="st">"overwrite"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>cDF.write.<span class="bu">format</span>(<span class="st">"parquet"</span>).save(<span class="st">"dbfs:/FileStore/tables/carrier2/"</span>, mode <span class="op">=</span> <span class="st">"overwrite"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>pDF.write.<span class="bu">format</span>(<span class="st">"parquet"</span>).save(<span class="st">"dbfs:/FileStore/tables/plane2/"</span>, mode <span class="op">=</span> <span class="st">"overwrite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<style scoped="">
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div>
+</div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“bbfed430-b5d3-486e-ad6b-b943d9b62966”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>flightsDF <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/flight2/"</span>).coalesce(<span class="dv">2</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>carriersDF <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/carrier2/"</span>).coalesce(<span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>planesDF <span class="op">=</span> spark.read.<span class="bu">format</span>(<span class="st">"parquet"</span>).load(<span class="st">"dbfs:/FileStore/tables/plane2/"</span>).coalesce(<span class="dv">1</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># airportsDF = spark.read.format("parquet").load("dbfs:/FileStore/tables/airport1/")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<style scoped="">
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div>
+</div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“2d072e1f-fd56-4b97-bb78-f6f38793b302”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>flightsDF.createOrReplaceTempView(<span class="st">"flights"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>carriersDF.createOrReplaceTempView(<span class="st">"carriers"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>planesDF.createOrReplaceTempView(<span class="st">"planes"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># airportsDF.coalesce(4).createOrReplaceTempView("airports")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<style scoped="">
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div>
+</div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“4681a382-fef4-443d-8a8f-b777378cd18b”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>spark.catalog.cacheTable(<span class="st">"flights"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>spark.catalog.cacheTable(<span class="st">"carriers"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>spark.catalog.cacheTable(<span class="st">"planes"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>spark.sql(<span class="st">"select * from flights"</span>).show()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>spark.sql(<span class="st">"select * from carriers"</span>).show()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>spark.sql(<span class="st">"select * from planes"</span>).show()</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>spark.sql(<span class="st">"set spark.sql.shuffle.partitions=2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<style scoped="">
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">+-------------+-------+------+
+uniquecarrier|tailnum|taxiin|
++-------------+-------+------+
+           9E| 87909E|    22|
+           NW| N554NW|     4|
+           AA| N3AVAA|     4|
+           AA| N3AVAA|     4|
+           AA| N3AVAA|     4|
+           B6| N238JB|    13|
+           UA| N820UA|    10|
+           NW| N354NW|     7|
+           NW| N354NW|     7|
+           9E| 84329E|    12|
+           OH| N709CA|     6|
+           OH| N709CA|     6|
+           OH| N709CA|     6|
+           OH| N709CA|     6|
+           XE| N18120|     6|
+           XE| N18120|     6|
+           XE| N18120|     6|
+           XE| N18120|     6|
+           XE| N18120|     6|
+           XE| N18120|     6|
++-------------+-------+------+
+only showing top 20 rows
+
++----+--------------------+
+code|         description|
++----+--------------------+
+ AEC| Astec Air East Inc.|
+ PNM|     Panama Aviation|
+ VAQ|         Vacationair|
+ VAS| Valley Air Services|
+ 0JQ|     Vision Airlines|
+  TP|Tap-Portuguese Ai...|
+ AAA|Associated Aviati...|
+  SH|Servicio Aereo De...|
+  ZL|           Affretair|
+ CSA|     Casino Airlines|
+ BAY|Burlington Aeropl...|
+ CAI|Crawford Aviation...|
+ CRP|       Corporate Air|
+ FAQ|Fast Air Carrier ...|
+ AAQ|Advance Air Charters|
+  AQ| Aloha Airlines Inc.|
+ ACA|Alaska Central Ai...|
+ EXA|Columbia Pacific ...|
+ COM|           Commutair|
+  OB|Oasis Int'l Airli...|
++----+--------------------+
+only showing top 20 rows
+
++-------+-----------------+
+tailnum|     manufacturer|
++-------+-----------------+
+ N17128|           BOEING|
+ N963DL|   BOMBARDIER INC|
+ N11206| AIRBUS INDUSTRIE|
+ N184US|           BOEING|
+ N319NB| AIRBUS INDUSTRIE|
+ N4YTAA|             null|
+ N549US|            BEECH|
+ N833AS| AIRBUS INDUSTRIE|
+ N313AE|           BOEING|
+ N15710|          EMBRAER|
+ N13624|          EMBRAER|
+ N717UW|          EMBRAER|
+ N676SW|           BOEING|
+ N5BVAA|           BOEING|
+ N18101|           BOEING|
+ N362NB|           BOEING|
+ N624AA|           BOEING|
+ N667DN|           BOEING|
+ N590JB|MCDONNELL DOUGLAS|
+ N14920|          EMBRAER|
++-------+-----------------+
+only showing top 20 rows
+
+Out[20]: DataFrame[key: string, value: string]</div>
+</div>
+<p>:::</p>
+<p>::: {.cell application/vnd.databricks.v1+cell=‘{“title”:““,”showTitle”:false,“inputWidgets”:{},“nuid”:“2c5e42ac-272b-4b05-8ee4-b0cacc138123”}’ execution_count=0}</p>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>spark.sql(<span class="st">"select c.description, p.manufacturer,  avg(f.taxiin) from flights f JOIN carriers c on f.uniquecarrier = c.code JOIN planes p on f.tailnum = p.tailnum group by c.description, p.manufacturer order by avg(taxiin) desc"</span>).show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<style scoped="">
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">+--------------------+--------------------+------------------+
+         description|        manufacturer|       avg(taxiin)|
++--------------------+--------------------+------------------+
+Delta Air Lines Inc.|        AEROSPATIALE|10.134453781512605|
+American Airlines...|      AERO COMMANDER| 9.333333333333334|
+Continental Air L...|             DOUGLAS| 9.306122448979592|
+Delta Air Lines Inc.|    AIRBUS INDUSTRIE| 9.088145349883073|
+Delta Air Lines Inc.|               BEECH| 8.977810650887575|
+Delta Air Lines Inc.|             EMBRAER| 8.915499322187076|
+Delta Air Lines Inc.| AEROSPATIALE/ALENIA| 8.866261398176292|
+Delta Air Lines Inc.|              BOEING| 8.813003318088064|
+American Airlines...|          AGUSTA SPA|  8.73076923076923|
+Delta Air Lines Inc.|              AIRBUS| 8.719496145892085|
+Delta Air Lines Inc.|              CESSNA| 8.681818181818182|
+American Airlines...|   FREDERICK CHRIS K| 8.651442307692308|
+Northwest Airline...|MCDONNELL DOUGLAS...| 8.595238095238095|
+American Airlines...|              CESSNA| 8.558541266794625|
+Delta Air Lines Inc.|                null| 8.519719664696991|
+Northwest Airline...|               PIPER| 8.478915662650602|
+Northwest Airline...|             DOUGLAS| 8.457446808510639|
+Northwest Airline...|   MCDONNELL DOUGLAS| 8.452018278750952|
+Northwest Airline...|      BOMBARDIER INC| 8.437941285767373|
+Delta Air Lines Inc.|            CANADAIR| 8.435832274459974|
++--------------------+--------------------+------------------+
+only showing top 20 rows
+
+</div>
+</div>
+<p>:::</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
