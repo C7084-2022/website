@@ -21,6 +21,12 @@ Welcome to C7084. This module is a survey of aspects of applications and tools t
 -   [Freecodecamp SQL](https://www.freecodecamp.org/news/sql-and-databases-full-course/)
 
 
+<br>
+
+![](img/Databricks.png) 
+
+Member of the [Databricks University Alliance](https://www.databricks.com/university)
+
 <br><br>
 
 ## Harper Adams Data Science

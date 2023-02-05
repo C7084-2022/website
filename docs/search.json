@@ -11,7 +11,7 @@
     "href": "index.html#c7084-resources",
     "title": "Home",
     "section": "C7084 Resources",
-    "text": "C7084 Resources\n\nSlack workspace (for enrolled students)\nOffice hours (Slack, Fridays by appointment)\nDatabricks knowledge base\nFreecodecamp SQL"
+    "text": "C7084 Resources\n\nSlack workspace (for enrolled students)\nOffice hours (Slack, Fridays by appointment)\nDatabricks knowledge base\nFreecodecamp SQL\n\n\n\nMember of the Databricks University Alliance"
   },
   {
     "objectID": "index.html#harper-adams-data-science",
@@ -630,20 +630,6 @@
     "text": "The material in this module is designed to be experienced in an intensive one week format followed by an assessment meant to showcase data science skills. For enrolled students, the work will be supported with several live sessions during the main week of delivery.\nOutline of material"
   },
   {
-    "objectID": "schedule.html#references",
-    "href": "schedule.html#references",
-    "title": "Schedule",
-    "section": "References",
-    "text": "References\nM. Amani et al., “Google Earth Engine Cloud Computing Platform for Remote Sensing Big Data Applications: A Comprehensive Review,” in IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing, vol. 13, pp. 5326-5350, 2020, doi: 10.1109/JSTARS.2020.3021052.\nTamiminia, H. et al. ‘Google Earth Engine for geo-big data applications: A meta-analysis and systematic review’, ISPRS Journal of Photogrammetry and Remote Sensing, 2020, 164, pp. 152–170. doi: 10.1016/j.isprsjprs.2020.04.001.\nCravero A, Sepúlveda S. Use and Adaptations of Machine Learning in Big Data—Applications in Real Cases in Agriculture. Electronics. 2021; 10(5):552. https://doi.org/10.3390/electronics10050552"
-  },
-  {
-    "objectID": "schedule.html#harper-adams-data-science",
-    "href": "schedule.html#harper-adams-data-science",
-    "title": "Schedule",
-    "section": "Harper Adams Data Science",
-    "text": "Harper Adams Data Science\n\nThis module is a part of the MSc in Data Science for Global Agriculture, Food, and Environment at Harper Adams University, led by Ed Harris."
-  },
-  {
     "objectID": "schedule.html#mon",
     "href": "schedule.html#mon",
     "title": "Schedule",
@@ -677,5 +663,19 @@
     "title": "Schedule",
     "section": "Fri",
     "text": "Fri\nMod 10 – Performance Tuning :: slides\nHacktivity 03 (Stream) / Hacktivity 04 (Air)\nMod 11 – Machine Learning :: slides 11-1 :: slides 11-2 :: slides 11-3 :: slides 11-4"
+  },
+  {
+    "objectID": "schedule.html#references",
+    "href": "schedule.html#references",
+    "title": "Schedule",
+    "section": "References",
+    "text": "References\nM. Amani et al., “Google Earth Engine Cloud Computing Platform for Remote Sensing Big Data Applications: A Comprehensive Review,” in IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing, vol. 13, pp. 5326-5350, 2020, doi: 10.1109/JSTARS.2020.3021052.\nTamiminia, H. et al. ‘Google Earth Engine for geo-big data applications: A meta-analysis and systematic review’, ISPRS Journal of Photogrammetry and Remote Sensing, 2020, 164, pp. 152–170. doi: 10.1016/j.isprsjprs.2020.04.001.\nCravero A, Sepúlveda S. Use and Adaptations of Machine Learning in Big Data—Applications in Real Cases in Agriculture. Electronics. 2021; 10(5):552. https://doi.org/10.3390/electronics10050552"
+  },
+  {
+    "objectID": "schedule.html#harper-adams-data-science",
+    "href": "schedule.html#harper-adams-data-science",
+    "title": "Schedule",
+    "section": "Harper Adams Data Science",
+    "text": "Harper Adams Data Science\n\nThis module is a part of the MSc in Data Science for Global Agriculture, Food, and Environment at Harper Adams University, led by Ed Harris."
   }
 ]

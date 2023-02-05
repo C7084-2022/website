@@ -3,10 +3,10 @@ project:
   output-dir: docs
 
 website:
-  favicon: "img/C7084-pad.png"
+  favicon: "img/C7084-hex.png"
   title: "C7084-2022 Big Data"
   sidebar:
-    logo: "img/C7084-pad.png"
+    logo: "img/C7084-hex.png"
     style: "docked"
     search: true
     contents: 
