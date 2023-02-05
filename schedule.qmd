@@ -6,7 +6,7 @@ title: "Schedule"
 
 The material in this module is designed to be experienced in an intensive one week format followed by an assessment meant to showcase data science skills. For enrolled students, the work will be supported with several live sessions during the main week of delivery.
 
-[Outline of material](files/databricks-outline.docs)
+[Outline of material](files/databricks-outline.docx)
 
 <br>
 
