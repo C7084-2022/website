@@ -28,7 +28,7 @@ D/L & install: [MySQL Community Server](https://dev.mysql.com/downloads/mysql/) 
 
 **Reading: Gupta 2022 Ch 01 and Ch 02**
 
-[Data bricks account and fast start](files/00-databricks-community-account.docx) :: [data files zip](https://www.dropbox.com/s/4raa80mv99aizpy/data.zip?dl=1) :: [lab notebooks zip](notebook-labs/databricks-notebooks.zip) :: [hacktivity notebooks zip](notebooks-hacktivity/hacktivities.zip)
+[Data bricks account and fast start](files/00-databricks-community-account.docx) :: [data files zip](https://www.dropbox.com/s/4raa80mv99aizpy/data.zip?dl=1) :: [lab notebooks zip](notebooks-labs/databricks-notebooks.zip) :: [hacktivity notebooks zip](notebooks-hacktivity/hacktivities.zip)
 
 (Tues-Fri suggested 'module' schedule)
 
