@@ -32,41 +32,41 @@ D/L & install: [MySQL Community Server](https://dev.mysql.com/downloads/mysql/) 
 
 (Tues-Fri suggested 'module' schedule)
 
-Mod 00 - intro and setup :: [slides](http://localhost:5712/slides/DB-Spark-Mod00-Intro-and-Setup.pptx)
+Mod 00 - intro and setup :: [slides](slides/DB-Spark-Mod00-Intro-and-Setup.pptx)
 
-Mod 01 -- Spark Architecture :: [slides](http://localhost:5712/slides/DB-Spark-Mod01-Spark-Architecture!.pptx)
+Mod 01 -- Spark Architecture :: [slides](slides/DB-Spark-Mod01-Spark-Architecture!.pptx)
 
-Mod 02 -- SparkSQL (Read/Write DataFrames/Tables) :: [slides](http://localhost:5712/slides/DB-Spark-Mod02-SparkSQL(Read-Write)!.pptx)
+Mod 02 -- SparkSQL (Read/Write DataFrames/Tables) :: [slides](slides/DB-Spark-Mod02-SparkSQL(Read-Write)!.pptx)
 
 Hacktivity 00 (Dates) / Hacktivity 01 (Air)
 
 ## Wed
 
-Mod 03 -- SparkSQL (Transform) :: [slides](http://localhost:5712/slides/DB-Spark-Mod03-SparkSQL-Transformations!%20(Student%20only).pptx)
+Mod 03 -- SparkSQL (Transform) :: [slides](slides/DB-Spark-Mod03-SparkSQL-Transformations!%20(Student%20only).pptx)
 
-Mod 04 -- Complex Data Types :: [slides](http://localhost:5712/slides/DB-Spark-Mod04-Complex%20(Student%20Only)!.pptx)
+Mod 04 -- Complex Data Types :: [slides](slides/DB-Spark-Mod04-Complex%20(Student%20Only)!.pptx)
 
-Mod 05 -- JSON (Optional) :: [slides](http://localhost:5712/slides/DB-Spark-Mod05-JSON!.pptx)
+Mod 05 -- JSON (Optional) :: [slides](slides/DB-Spark-Mod05-JSON!.pptx)
 
 Hacktivity 02 (Fly)
 
 ## Thurs
 
-Mod 06 -- Streaming :: [slides](http://localhost:5712/slides/DB-Spark-Mod06-Streaming!.pptx)
+Mod 06 -- Streaming :: [slides](slides/DB-Spark-Mod06-Streaming!.pptx)
 
-Mod 07 -- Architecture-Spark UI :: [slides](http://localhost:5712/slides/DB-Spark-Mod07-Job-Arch-SparkUI!.pptx)
+Mod 07 -- Architecture-Spark UI :: [slides](slides/DB-Spark-Mod07-Job-Arch-SparkUI!.pptx)
 
-Mod 08 -- Catalog-Catalyst-Tungsten :: [slides](http://localhost:5712/slides/DB-Spark-Mod08-Catalyst-Tungsten!.pptx)
+Mod 08 -- Catalog-Catalyst-Tungsten :: [slides](slides/DB-Spark-Mod08-Catalyst-Tungsten!.pptx)
 
-Mod 09 -- Adaptive Query Execution :: [slides](http://localhost:5712/slides/DB-Spark-Mod09-AQE!.pptx)
+Mod 09 -- Adaptive Query Execution :: [slides](slides/DB-Spark-Mod09-AQE!.pptx)
 
 ## Fri
 
-Mod 10 -- Performance Tuning :: [slides](http://localhost:5712/slides/DB-Spark-Mod10-Perf-Tuning!.pptx)
+Mod 10 -- Performance Tuning :: [slides](slides/DB-Spark-Mod10-Perf-Tuning!.pptx)
 
 Hacktivity 03 (Stream) / Hacktivity 04 (Air)
 
-Mod 11 -- Machine Learning :: [slides 11-1](http://localhost:5712/slides/Mod11-1.pptx) :: [slides 11-2](http://localhost:5712/slides/Mod11-2.pptx) :: [slides 11-3](http://localhost:5712/slides/Mod11-3.pptx) :: [slides 11-4](http://localhost:5712/slides/Mod11-4.pptx)
+Mod 11 -- Machine Learning :: [slides 11-1](slides/Mod11-1.pptx) :: [slides 11-2](slides/Mod11-2.pptx) :: [slides 11-3](slides/Mod11-3.pptx) :: [slides 11-4](slides/Mod11-4.pptx)
 
 ## References
 [Readings books](files/readings-books.zip) :: [Readings articles](files/readings-articles.zip)
