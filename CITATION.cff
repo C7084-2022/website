@@ -1,0 +1,35 @@
+cff-version: 1.0.0
+message: "If you use this software, please cite it as below."
+title: "Big Data and Decision Making"
+abstract: "A comprehensive course covering big data applications and tools for storing, accessing, and analyzing large-scale datasets. Designed for students with Python programming experience, featuring modules on data storage systems, cloud computing environments, analytics platforms, and practical decision-making applications using industry-standard tools including Databricks."
+authors:
+- family-names: "Harris"
+  given-names: "W. E."
+  orcid: "https://orcid.org/0000-0002-9038-8656"
+title: "Big Data and Decision Making"
+version: 2022.1.0
+doi: 10.5281/zenodo.15668662
+date-released: 2022-08-01
+url: "https://c7084-2022.github.io/website/"
+license: MIT
+keywords:
+  - R programming
+  - python programming
+  - databricks
+  - data analysis
+  - SQL
+  - cloud computing
+  - self-paced learning
+preferred-citation:
+  type: misc
+  authors:
+  - family-names: "Harris"
+    given-names: "W. E."
+    orcid: "https://orcid.org/0000-0002-9038-8656"
+    affiliation: "Centre for Agricultural Data Science, Harper Adams University"
+  title: "Big Data and Decision Making: A Self-Paced Course for big data and decision making"
+  year: 2022  # Update to your publication year
+  url: "https://c7084-2022.github.io/website/"
+  doi: "10.5281/zenodo.15668662"
+  publisher: "Centre for Agricultural Data Science, Harper Adams University"
+  notes: "Open educational resource for learning R programming, statistical analysis, and reproducible research practices"
