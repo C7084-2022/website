@@ -1,5 +1,7 @@
 # C7084 Big Data and Decision Making - Course Website
 
+Harris, W. E. (2022). Big Data and Decision Making: A Self-Paced Course for big data and decision making. https://doi.org/10.5281/zenodo.15668662
+
 This repository contains the course website for **C7084 Big Data and Decision Making** (2022) at Harper Adams University.
 
 ## About
